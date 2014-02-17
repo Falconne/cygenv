@@ -125,7 +125,7 @@ fi
 
 # Start gvim with converted paths
 g () {
-    /cygdrive/c/Program\ Files\ \(x86\)/Vim/vim73/gvim `cygpath -w $@` &
+    cygstart /cygdrive/c/Program\ Files\ \(x86\)/Vim/vim73/gvim `cygpath -w $@`
 }
 
 alias ld="ls --color=tty"
