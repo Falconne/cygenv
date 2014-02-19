@@ -14,6 +14,9 @@ shopt -s histappend
 # for example, cd /vr/lgo/apaache would find /var/log/apache
 shopt -s cdspell
 
+# cd to a directory jusy by typing the path
+shopt -s autocd
+
 # If set, Bash attempts spelling correction on directory names during word completion
 # if the directory name initially supplied does not exist.
 shopt -s dirspell
@@ -155,6 +158,8 @@ alias commit="git commit"
 
 # Use git colours when paging
 alias less="less -R"
+
+export TERM=cygwin
 
 cd /cygdrive/c
 
