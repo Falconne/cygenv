@@ -146,7 +146,8 @@ alias fgrep="fgrep --exclude-dir={\.svn,\.git} --color=always"
 alias grep="grep --exclude-dir={\.svn,\.git} --color=always"
 
 # git aliases
-alias glog="git log --graph --decorate --pretty=oneline --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%n' --color"
+alias glog="git log --graph --decorate --pretty=oneline --abbrev-commit --format=format:' %C(white)%s%C(reset) %C(bold yellow)- %an%C(reset)%n''     %C(dim white)%h - %aD (%ar)%C(reset)%C(bold yellow)%d%C(r
+eset)%n' --color"
 alias gl="glog | less -R"
 alias glo="git log --oneline -25 --color"
 alias sta="git status"
