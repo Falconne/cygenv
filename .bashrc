@@ -131,6 +131,12 @@ g () {
     cygstart /cygdrive/c/Program\ Files\ \(x86\)/Vim/vim73/gvim `cygpath -w $@`
 }
 
+# List commits that will be pushed from current branch to upstream
+# tracked branch
+push_what() {
+    git log --oneline `git status -sb | \grep -oE ' [^ ]+ '`
+}
+
 alias ld="ls --color=tty"
 alias ls="ls --color=tty"
 # alias ls='ls -hF --color=tty'                 # classify files in colour
@@ -158,10 +164,6 @@ alias push="git push"
 alias co="git checkout"
 alias fetch="git fetch"
 alias commit="git commit"
-
-# List commits that will be pushed from current branch to upstream
-# tracked branch
-alias pushwhat="git log --oneline `git status -sb | \grep -oE ' [^ ]+ '`"
 
 # Use git colours when paging
 alias less="less -R"
