@@ -133,8 +133,8 @@ g () {
 
 # List commits that will be pushed from current branch to upstream
 # tracked branch
-push_what() {
-    git log --oneline `git status -sb | \grep -oE ' [^ ]+ '`
+showpush() {
+    git log --oneline `git status -sb | \grep -m 1 -oE '\.([^\. ]+)' | \grep -oE '[^\.]+'`..HEAD
 }
 
 alias ld="ls --color=tty"
