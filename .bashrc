@@ -131,12 +131,6 @@ g () {
     cygstart /cygdrive/c/Program\ Files\ \(x86\)/Vim/vim73/gvim `cygpath -w $@`
 }
 
-# List commits that will be pushed from current branch to upstream
-# tracked branch
-showpush() {
-    git log --oneline `git status -sb | \grep -m 1 -oE '\.([^\. ]+)' | \grep -oE '[^\.]+'`..HEAD
-}
-
 alias ld="ls --color=tty"
 alias ls="ls --color=tty"
 # alias ls='ls -hF --color=tty'                 # classify files in colour
@@ -152,8 +146,7 @@ alias fgrep="fgrep --exclude-dir={\.svn,\.git} --color=always"
 alias grep="grep --exclude-dir={\.svn,\.git} --color=always"
 
 # git aliases
-alias glog="git log --graph --decorate --pretty=oneline --abbrev-commit --format=format:' %C(white)%s%C(reset) %C(bold yellow)- %an%C(reset)%n''     %C(dim white)%h - %aD (%ar)%C(reset)%C(bold yellow)%d%C(r
-eset)%n' --color"
+alias glog="git log --graph --decorate --pretty=oneline --abbrev-commit --format=format:' %C(white)%s%C(reset) %C(bold yellow)- %an%C(reset)%n''     %C(dim white)%h - %aD (%ar)%C(reset)%C(bold yellow)%d%C(reset)%n' --color"
 alias gl="glog | less -R"
 alias glo="git log --oneline -25 --color"
 alias sta="git status"
@@ -164,6 +157,9 @@ alias push="git push"
 alias co="git checkout"
 alias fetch="git fetch"
 alias commit="git commit"
+
+# List commits that will be pushed from current branch to upstream tracked branch
+alias showpush="git log --oneline @{u}.."
 
 # Use git colours when paging
 alias less="less -R"
