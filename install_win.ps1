@@ -103,3 +103,8 @@ else
 {
     Copy-Item $lnkFile $startMenuLnk
 }
+
+# Firgure out Cygwin home directory
+$passwdFile = "C:\Cygwin\etc\passwd"
+$passwdContent = Get-Content $passwdContent
+$username = $Env:USERNAME
