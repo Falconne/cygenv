@@ -105,6 +105,12 @@ else
 }
 
 # Firgure out Cygwin home directory
-$passwdFile = "C:\Cygwin\etc\passwd"
-$passwdContent = Get-Content $passwdContent
+#$passwdFile = "C:\Cygwin\etc\passwd"
+#$passwdContent = Get-Content $passwdContent
 $username = $Env:USERNAME
+$cyghome = Join-Path $cygdir "home1\$username"
+if (!(Test-Path $cyghome))
+{
+    Write-Error "Cygwin home not found in $cyghome. Refer to manual config instructions in Readme."
+    exit 1
+}
