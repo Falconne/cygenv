@@ -126,9 +126,17 @@ then
     PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
 fi
 
-# Start gvim with converted paths
+# Start gvim with converted paths and don't hang
 g () {
-    cygstart /cygdrive/c/Program\ Files\ \(x86\)/Vim/vim73/gvim `cygpath -w $@`
+    cygstart gvim `cygpath -w $@`
+}
+
+gedit () {
+    gvim `cygpath -w $@`
+}
+
+nedit () {
+    notepad `cygpath -w $@`
 }
 
 alias ld="ls --color=tty"
@@ -169,6 +177,12 @@ alias showpush="git log --oneline @{u}.."
 alias less="less -R"
 
 export TERM=cygwin
+
+if type -a gvim >/dev/null 2>&1; then
+    export EDITOR=gedit
+else
+    export EDITOR=nedit
+fi
 
 cd /cygdrive/c
 
