@@ -158,6 +158,9 @@ alias co="git checkout"
 alias fetch="git fetch"
 alias commit="git commit"
 
+# cd to top level of git repo
+alias cdr='cd $(git rev-parse --show-toplevel)'
+
 # List commits that will be pushed from current branch to upstream tracked branch
 alias showpush="git log --oneline @{u}.."
 
