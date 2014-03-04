@@ -2,6 +2,24 @@
 $site = "ftp://ucmirror.canterbury.ac.nz/pub/cygwin/"
 $cygdir = "c:\cygwin"
 
+function finish($code)
+{
+    Write-Host "Press any key to finish..."
+    $HOST.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | OUT-NULL
+    $HOST.UI.RawUI.Flushinputbuffer()
+    exit $code
+}
+
+function writeHeading($msg)
+{
+    Write-Host $msg -ForegroundColor Yellow
+}
+
+function writeProgress($msg)
+{
+    Write-Host $msg -ForegroundColor DarkYellow
+}
+# Elevate script if needed
 # Get the ID and security principal of the current user account
 $myWindowsID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $myWindowsPrincipal = new-object System.Security.Principal.WindowsPrincipal($myWindowsID)
@@ -39,17 +57,17 @@ $upgrading = Test-Path $cygdir
 
 if ($upgrading)
 {
-    Write-Host "Upgrade started"
+    writeHeading("Upgrade started")
 }
 else
 {
-    Write-Host "Fresh install started"
+    writeHeading("Fresh install started")
 }
 
 if (!(Test-Path $setupDir)) { md $setupDir }
-Write-Host "Fetching latest Cygwin installer"
-#$wc = New-Object System.Net.WebClient
-#$wc.DownloadFile("http://cygwin.com/setup-x86.exe", $setupProg)
+writeProgress("Fetching latest Cygwin installer")
+$wc = New-Object System.Net.WebClient
+$wc.DownloadFile("http://cygwin.com/setup-x86.exe", $setupProg)
 
 pushd .
 chdir $setupDir
@@ -58,7 +76,7 @@ $args += "--packages openssh,bash,mintty,curl"
 Start-Process -NoNewWindow -Wait $setupProg $args
 popd
 
-Write-Host "Creating shortcuts"
+writeHeading("Creating shortcuts")
 $wshShell = New-Object -comObject WScript.Shell
 $lnkArgs = "--hold never -i /Cygwin-Terminal.ico -"
 
@@ -67,11 +85,11 @@ if (!(Test-Path $desktop)) { $desktop = "$Home\Desktop" }
 $lnkFile = Join-Path $desktop "Cygwin Terminal.lnk"
 if (Test-Path $lnkFile)
 {
-    Write-Host "Desktop shortcut exists"
+    writeProgress("Desktop shortcut exists")
     $shortcut = $wshShell.CreateShortcut($lnkFile)
     if ($shortcut.Arguments -ne $lnkArgs)
     {
-        Write-Host "Arguments need updating"
+        writeProgress("Arguments need updating")
         $shortcut.Arguments = $lnkArgs
         $shortcut.Save()
     }
@@ -90,11 +108,11 @@ $startMenuDir = Join-Path $startMenu "Programs\Cygwin"
 $startMenuLnk = Join-Path $startMenuDir "Cygwin Terminal.lnk"
 if (Test-Path $startMenuLnk)
 {
-    Write-Host "Start Menu shortcut exists"
+    writeProgress("Start Menu shortcut exists")
     $shortcut = $wshShell.CreateShortcut($startMenuLnk)
     if ($shortcut.Arguments -ne $lnkArgs)
     {
-        Write-Host "Arguments need updating"
+        writeProgress("Arguments need updating")
         $shortcut.Arguments = $lnkArgs
         $shortcut.Save()
     }
@@ -105,12 +123,13 @@ else
 }
 
 # Firgure out Cygwin home directory
-#$passwdFile = "C:\Cygwin\etc\passwd"
-#$passwdContent = Get-Content $passwdContent
 $username = $Env:USERNAME
-$cyghome = Join-Path $cygdir "home1\$username"
+$cyghome = Join-Path $cygdir "home\$username"
 if (!(Test-Path $cyghome))
 {
-    Write-Error "Cygwin home not found in $cyghome. Refer to manual config instructions in Readme."
-    exit 1
+    $Host.UI.WriteErrorLine("Cygwin home not found in $cyghome. Refer to 'Manual Configuration' instructions in Readme.")
+    finish 1
 }
+
+writeProgress("All done.")
+finish 0
