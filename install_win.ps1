@@ -2,23 +2,6 @@
 $site = "ftp://ucmirror.canterbury.ac.nz/pub/cygwin/"
 $cygdir = "c:\cygwin"
 
-function finish($code)
-{
-    Write-Host "Press any key to finish..."
-    $HOST.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | OUT-NULL
-    $HOST.UI.RawUI.Flushinputbuffer()
-    exit $code
-}
-
-function writeHeading($msg)
-{
-    Write-Host $msg -ForegroundColor Yellow
-}
-
-function writeProgress($msg)
-{
-    Write-Host $msg -ForegroundColor DarkYellow
-}
 # Elevate script if needed
 # Get the ID and security principal of the current user account
 $myWindowsID = [System.Security.Principal.WindowsIdentity]::GetCurrent()
@@ -50,6 +33,42 @@ if (!$myWindowsPrincipal.IsInRole($adminRole))
    exit
 }
 
+# Start actual script
+
+function finish($code)
+{
+    Write-Host "Press any key to finish..."
+    $HOST.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | OUT-NULL
+    $HOST.UI.RawUI.Flushinputbuffer()
+    exit $code
+}
+
+function writeHeading($msg)
+{
+    Write-Host $msg -ForegroundColor Yellow
+}
+
+function writeProgress($msg)
+{
+    Write-Host $msg -ForegroundColor DarkYellow
+}
+
+$scriptDir = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
+
+function makeLocalHardLink($cyghome, $file)
+{
+    $localFile = Join-Path $cyghome $file
+    $localFileBak = $localFile + ".cebak"
+    if (Test-Path $localFile)
+    {
+        if (Test-Path $localFileBak)
+        {
+            writeProgress "$file backup exists, skipping"
+            return
+        }
+    }
+}
+
 $setupDir = Join-Path $cygdir "setup"
 $setupProg = Join-Path $setupDir "setup-x86.exe"
 
@@ -57,15 +76,15 @@ $upgrading = Test-Path $cygdir
 
 if ($upgrading)
 {
-    writeHeading("Upgrade started")
+    writeHeading "Upgrade started"
 }
 else
 {
-    writeHeading("Fresh install started")
+    writeHeading "Fresh install started"
 }
 
 if (!(Test-Path $setupDir)) { md $setupDir }
-writeProgress("Fetching latest Cygwin installer")
+writeProgress "Fetching latest Cygwin installer"
 $wc = New-Object System.Net.WebClient
 $wc.DownloadFile("http://cygwin.com/setup-x86.exe", $setupProg)
 
@@ -76,7 +95,7 @@ $args += "--packages openssh,bash,mintty,curl"
 Start-Process -NoNewWindow -Wait $setupProg $args
 popd
 
-writeHeading("Creating shortcuts")
+writeHeading "Creating shortcuts"
 $wshShell = New-Object -comObject WScript.Shell
 $lnkArgs = "--hold never -i /Cygwin-Terminal.ico -"
 
@@ -85,11 +104,11 @@ if (!(Test-Path $desktop)) { $desktop = "$Home\Desktop" }
 $lnkFile = Join-Path $desktop "Cygwin Terminal.lnk"
 if (Test-Path $lnkFile)
 {
-    writeProgress("Desktop shortcut exists")
+    writeProgress "Desktop shortcut exists"
     $shortcut = $wshShell.CreateShortcut($lnkFile)
     if ($shortcut.Arguments -ne $lnkArgs)
     {
-        writeProgress("Arguments need updating")
+        writeProgress "Arguments need updating"
         $shortcut.Arguments = $lnkArgs
         $shortcut.Save()
     }
@@ -97,7 +116,7 @@ if (Test-Path $lnkFile)
 else
 {
     $shortcut = $wshShell.CreateShortcut($lnkFile)
-    $shortcut.TargetPath = "C:\Cygwin\bin\mintty.exe"
+    $shortcut.TargetPath = Join-Path $cygdir "bin\mintty.exe"
     $shortcut.Arguments = $lnkArgs
     $shortcut.Save()
 }
@@ -108,11 +127,11 @@ $startMenuDir = Join-Path $startMenu "Programs\Cygwin"
 $startMenuLnk = Join-Path $startMenuDir "Cygwin Terminal.lnk"
 if (Test-Path $startMenuLnk)
 {
-    writeProgress("Start Menu shortcut exists")
+    writeProgress "Start Menu shortcut exists"
     $shortcut = $wshShell.CreateShortcut($startMenuLnk)
     if ($shortcut.Arguments -ne $lnkArgs)
     {
-        writeProgress("Arguments need updating")
+        writeProgress "Arguments need updating"
         $shortcut.Arguments = $lnkArgs
         $shortcut.Save()
     }
@@ -130,6 +149,11 @@ if (!(Test-Path $cyghome))
     $Host.UI.WriteErrorLine("Cygwin home not found in $cyghome. Refer to 'Manual Configuration' instructions in Readme.")
     finish 1
 }
+
+writeProgress "Checking config files"
+$localBashrc = Join-Path $cyghome ".bashrc"
+$localBashrcBak = $localBashrcBak + ".cebak"
+
 
 writeProgress("All done.")
 finish 0
