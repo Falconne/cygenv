@@ -186,6 +186,12 @@ fi
 
 cd /cygdrive/c
 
+# Add custom settings in this file
+if [ -f ~/bashrc_custom ];
+then
+    . ~/bashrc_custom
+fi
+
 # Remember to:
 # set CYGWIN=nodosfilewarning in the global environment
 # git config --global push.default current

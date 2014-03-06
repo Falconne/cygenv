@@ -54,8 +54,11 @@ function writeProgress($msg)
 }
 
 $scriptDir = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
+# Cygwin home directory
+$username = $Env:USERNAME
+$cyghome = Join-Path $cygdir "home\$username"
 
-function makeLocalHardLink($cyghome, $file)
+function makeLocalHardLink($file)
 {
     $localFile = Join-Path $cyghome $file
     $localFileBak = $localFile + ".cebak"
@@ -66,7 +69,23 @@ function makeLocalHardLink($cyghome, $file)
             writeProgress "$file backup exists, skipping"
             return
         }
+
+        $fileContent = @(Get-Content $localFile)
+        if ($fileContent)
+        {
+            $topLine = $fileContent[0]
+            if ($topLine -like "*cygenv*")
+            {
+                writeProgress "$file aready linked"
+                return
+            }
+        }
+
+        Move-Item $localFile $localFileBak
     }
+
+    $cygenvFile = Join-Path $scriptDir $file
+    cmd.exe /c mklink /h $localFile $cygenvFile
 }
 
 $setupDir = Join-Path $cygdir "setup"
@@ -141,19 +160,36 @@ else
     Copy-Item $lnkFile $startMenuLnk
 }
 
-# Firgure out Cygwin home directory
-$username = $Env:USERNAME
-$cyghome = Join-Path $cygdir "home\$username"
 if (!(Test-Path $cyghome))
 {
     $Host.UI.WriteErrorLine("Cygwin home not found in $cyghome. Refer to 'Manual Configuration' instructions in Readme.")
     finish 1
 }
 
-writeProgress "Checking config files"
-$localBashrc = Join-Path $cyghome ".bashrc"
-$localBashrcBak = $localBashrcBak + ".cebak"
+writeProgress "Synchronising config files"
+makeLocalHardLink ".bashrc"
 
+$localCEDir = Join-Path $cyghome "cygenv-files"
+if (!(Test-Path $localCEDir))
+{
+    $repoCEDir = Join-Path $scriptDir "cygenv-files"
+    cmd.exe /c mklink /d $localCEDir $repoCEDir
+}
 
-writeProgress("All done.")
+$minttyrc = Join-Path $cyghome ".minttyrc"
+if (!(Test-Path $minttyrc))
+{
+    $minttyrcRepo = Join-Path $scriptDir ".minttyrc"
+    writeProgress "Copying default mintty config"
+    Copy-Item $minttyrcRepo $minttyrc
+}
+
+my $localGitConfig = Join-Path $cyghome ".gitconfig"
+if (!(Test-Path $localGitConfig))
+{
+    $homedirs = @()
+    $profileGitConfig = Join-Path $Env:USERPROFILE ".gitconfig"
+}
+
+writeHeading("All done.")
 finish 0
