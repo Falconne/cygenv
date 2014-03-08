@@ -58,9 +58,9 @@ $scriptDir = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 $username = $Env:USERNAME
 $cyghome = Join-Path $cygdir "home\$username"
 
-function makeLocalHardLink($file)
+function createBashrcWrapper()
 {
-    $localFile = Join-Path $cyghome $file
+    $localFile = Join-Path $cyghome ".bashrc"
     $localFileBak = $localFile + ".cebak"
     if (Test-Path $localFile)
     {
@@ -84,8 +84,10 @@ function makeLocalHardLink($file)
         Move-Item $localFile $localFileBak
     }
 
-    $cygenvFile = Join-Path $scriptDir $file
-    cmd.exe /c mklink /h $localFile $cygenvFile
+    $cygenvFile = Join-Path $scriptDir ".bashrc"
+    $text = "# cygenv wrapper`n. ``cygpath `"$cygenvFile`"``"
+    # Ridiculousness due to PS cmdlets adding CRLF when writing to files
+    [io.file]::WriteAllText($localFile, $text)
 }
 
 $setupDir = Join-Path $cygdir "setup"
@@ -167,7 +169,7 @@ if (!(Test-Path $cyghome))
 }
 
 writeProgress "Synchronising config files"
-makeLocalHardLink ".bashrc"
+createBashrcWrapper
 
 $localCEDir = Join-Path $cyghome "cygenv-files"
 if (!(Test-Path $localCEDir))
@@ -184,12 +186,5 @@ if (!(Test-Path $minttyrc))
     Copy-Item $minttyrcRepo $minttyrc
 }
 
-my $localGitConfig = Join-Path $cyghome ".gitconfig"
-if (!(Test-Path $localGitConfig))
-{
-    $homedirs = @()
-    $profileGitConfig = Join-Path $Env:USERPROFILE ".gitconfig"
-}
-
-writeHeading("All done.")
+writeHeading "All done."
 finish 0
