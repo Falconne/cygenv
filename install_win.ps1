@@ -53,41 +53,67 @@ function writeProgress($msg)
     Write-Host $msg -ForegroundColor DarkYellow
 }
 
+function isReparsePoint([string] $path)
+{
+    $file = Get-Item $path -Force -ea 0
+    return [bool] ($file.Attributes -band [IO.FileAttributes]::ReparsePoint)
+}
+
 $scriptDir = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 # Cygwin home directory
 $username = $Env:USERNAME
 $cyghome = Join-Path $cygdir "home\$username"
+$localBashrcWrapper = Join-Path $cyghome ".bashrc"
 
-function createBashrcWrapper()
+function isHomeDirLinked($createBashrcBackup)
 {
-    $localFile = Join-Path $cyghome ".bashrc"
-    $localFileBak = $localFile + ".cebak"
-    if (Test-Path $localFile)
+    $localFileBak = $localBashrcWrapper + ".cebak"
+    if (Test-Path $localBashrcWrapper)
     {
         if (Test-Path $localFileBak)
         {
-            writeProgress "$file backup exists, skipping"
-            return
+            return $true
         }
 
-        $fileContent = @(Get-Content $localFile)
+        $fileContent = @(Get-Content $localBashrcWrapper)
         if ($fileContent)
         {
             $topLine = $fileContent[0]
             if ($topLine -like "*cygenv*")
             {
-                writeProgress "$file aready linked"
-                return
+                return $true
             }
         }
 
-        Move-Item $localFile $localFileBak
+        if ($createBashrcBackup)
+        {
+            Move-Item $localBashrcWrapper $localFileBak
+        }
     }
+
+    return $false
+}
+
+function linkHomeDir()
+{
+    if (isReparsePoint $cyghome) { return }
+    if (isHomeDirLinked $false) { return }
+    $homeDirBak = Join-Path $cyghome ".cebak"
+    if (Test-Path $homeDirBak) { return }
+    $realHomeDir = Join-Path $Env:HOMEDRIVE $Env:HOMEPATH
+    if (!(Test-Path $realHomeDir)) { return }
+    Move-Item $cyghome $homeDirBak
+    cmd.exe /c mklink /d $cyghome $realHomeDir
+}
+
+function createBashrcWrapper()
+{
+    if (isHomeDirLinked $true) { return }
 
     $cygenvFile = Join-Path $scriptDir ".bashrc"
     $text = "# cygenv wrapper`n. ``cygpath `"$cygenvFile`"``"
     # Ridiculousness due to PS cmdlets adding CRLF when writing to files
-    [io.file]::WriteAllText($localFile, $text)
+    [io.file]::WriteAllText($localBashrcWrapper, $text)
 }
 
 $setupDir = Join-Path $cygdir "setup"
@@ -168,8 +194,9 @@ if (!(Test-Path $cyghome))
     finish 1
 }
 
-writeProgress "Synchronising config files"
-createBashrcWrapper
+writeProgress "Synchronising home directory"
+#linkHomeDir
+#createBashrcWrapper
 
 $localCEDir = Join-Path $cyghome "cygenv-files"
 if (!(Test-Path $localCEDir))
