@@ -39,7 +39,9 @@ shopt -s no_empty_cmd_completion
 # Any completions you add in ~/.bash_completion are sourced last.
  [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
- [[ -f ~/cygenv-files/git-completion.sh ]] && . ~/cygenv-files/git-completion.sh
+ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+. $SCRIPT_DIR/cygenv-files/git-completion.sh
 
 # History Options
 #
@@ -116,15 +118,12 @@ bind '"\e\d": undo'
 shopt -s checkwinsize
 
 # Fancy prompt
-if [ -f ~/cygenv-files/git-prompt.sh ];
-then
-    . ~/cygenv-files/git-prompt.sh
-    GIT_PS1_SHOWCOLORHINTS=true
-    #GIT_PS1_SHOWDIRTYSTATE=true
-    #GIT_PS1_SHOWUNTRACKEDFILES=true
-    GIT_PS1_SHOWUPSTREAM="verbose"
-    PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
-fi
+. $SCRIPT_DIR/cygenv-files/git-prompt.sh
+GIT_PS1_SHOWCOLORHINTS=true
+#GIT_PS1_SHOWDIRTYSTATE=true
+#GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM="verbose"
+PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
 
 # Start gvim with converted paths and don't hang
 g () {
