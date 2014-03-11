@@ -88,7 +88,16 @@ export HISTIGNORE="&:[ \t]:l[sl]:[bf]g:exit"
 #
 
 # Remember directory stack
-alias cd="pushd .>/dev/null;cd"
+cd () {
+    if [ "$1" = "-" ]; then
+        builtin cd -
+    else
+        pushd .>/dev/null
+        builtin cd "$1"
+    fi;
+}
+
+# Navigate backwards
 alias pd="popd>/dev/null"
 
 # Colors for a black terminal
