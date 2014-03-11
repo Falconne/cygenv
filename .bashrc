@@ -100,6 +100,9 @@ cd () {
 # Navigate backwards
 alias pd="popd>/dev/null"
 
+# Navigate backwards with Alt-Left
+bind '"\e[1;3D": "pd\n"'
+
 # Colors for a black terminal
 export LS_COLORS="di=01;37"
 
@@ -116,11 +119,11 @@ bind '"\e[3;5~": kill-word'
 bind '"\C-_": backward-kill-word'
 
 # Ctrl+Shift+Backspace/Delete to delete to start/end of the line
+# Ctrl-w also does this
 bind '"\e[3;6~": kill-line'
 bind '"\xC2\x9F": backward-kill-line'
 
 # Alt-Backspace for undo delete
-# Ctrl-w also does this
 bind '"\e\d": undo'
 
 # Update COLUMNS and LINES variables
