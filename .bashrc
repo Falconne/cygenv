@@ -130,12 +130,14 @@ bind '"\e\d": undo'
 shopt -s checkwinsize
 
 # Fancy prompt
-. $SCRIPT_DIR/cygenv-files/git-prompt.sh
-GIT_PS1_SHOWCOLORHINTS=true
-#GIT_PS1_SHOWDIRTYSTATE=true
-#GIT_PS1_SHOWUNTRACKEDFILES=true
-GIT_PS1_SHOWUPSTREAM="verbose"
-PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
+if [ $OSTYPE -ne "msys" ]; then
+    . $SCRIPT_DIR/cygenv-files/git-prompt.sh
+    GIT_PS1_SHOWCOLORHINTS=true
+    #GIT_PS1_SHOWDIRTYSTATE=true
+    #GIT_PS1_SHOWUNTRACKEDFILES=true
+    GIT_PS1_SHOWUPSTREAM="verbose"
+    PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
+fi
 
 # Start gvim with converted paths and don't hang
 g () {
@@ -187,7 +189,7 @@ alias showpush="git log --oneline @{u}.."
 # Use git colours when paging
 alias less="less -R"
 
-export TERM=cygwin
+export TERM=$OSTYPE
 
 if type -a gvim >/dev/null 2>&1; then
     export EDITOR=gedit
@@ -195,7 +197,9 @@ else
     export EDITOR=nedit
 fi
 
-cd /cygdrive/c
+if [ $OSTYPE = "cygwin" ]; then
+    cd /cygdrive/c
+fi
 
 # Add custom settings in this file
 if [ -f ~/bashrc_custom ];
