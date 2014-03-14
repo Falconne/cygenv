@@ -130,7 +130,7 @@ bind '"\e\d": undo'
 shopt -s checkwinsize
 
 # Fancy prompt
-if [ $OSTYPE -ne "msys" ]; then
+if [ $OSTYPE != "msys" ]; then
     . $SCRIPT_DIR/cygenv-files/git-prompt.sh
     GIT_PS1_SHOWCOLORHINTS=true
     #GIT_PS1_SHOWDIRTYSTATE=true
