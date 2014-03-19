@@ -103,6 +103,9 @@ alias pd="popd>/dev/null"
 # Navigate backwards with Alt-Left
 bind '"\e[1;3D": "pd\n"'
 
+# Alt-Up to go up a directory level
+bind '"\e[1;3A": "cd ..\n"'
+
 # Colors for a black terminal
 export LS_COLORS="di=01;37"
 
@@ -209,5 +212,4 @@ fi
 
 # Remember to:
 # set CYGWIN=nodosfilewarning in the global environment
-# git config --global push.default current
 
