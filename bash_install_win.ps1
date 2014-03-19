@@ -1,4 +1,4 @@
-# Default config
+﻿# Default config
 $site = "ftp://ucmirror.canterbury.ac.nz/pub/cygwin/"
 $cygdir = "c:\cygwin"
 
