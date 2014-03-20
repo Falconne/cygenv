@@ -209,7 +209,3 @@ if [ -f ~/bashrc_custom ];
 then
     . ~/bashrc_custom
 fi
-
-# Remember to:
-# set CYGWIN=nodosfilewarning in the global environment
-
