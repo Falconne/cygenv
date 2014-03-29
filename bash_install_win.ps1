@@ -109,8 +109,7 @@ function linkHomeDir()
 
     Copy-Item (Join-Path $homeDirBak ".inputrc") $cyghome
 
-    # FIXME use git bash safe .profile
-    Copy-Item (Join-Path $homeDirBak ".profile") $cyghome
+    Copy-Item (Join-Path $scriptDir ".profile") $cyghome
 }
 
 function createBashrcWrapper()
