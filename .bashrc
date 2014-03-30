@@ -46,7 +46,7 @@ shopt -s no_empty_cmd_completion
 # History Options
 #
 # Don't put duplicate lines in the history.
- export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 #
 # Ignore some controlling instructions
 # HISTIGNORE is a colon-delimited list of patterns which should be excluded.
@@ -142,18 +142,20 @@ if [ $OSTYPE != "msys" ]; then
     PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
 fi
 
-# Start gvim with converted paths and don't hang
-g () {
-    cygstart gvim `cygpath -w $@`
-}
+if [[ $string != *linux* ]] && [[ $string != *darwin* ]]; then
+    # Start gvim with converted paths and don't hang
+    g () {
+        cygstart gvim `cygpath -w $@`
+    }
 
-gedit () {
-    gvim `cygpath -w $@`
-}
+    gedit () {
+        gvim `cygpath -w $@`
+    }
 
-nedit () {
-    notepad `cygpath -w $@`
-}
+    nedit () {
+        notepad `cygpath -w $@`
+    }
+fi
 
 alias ld="ls --color=tty"
 alias ls="ls --color=tty"
@@ -192,12 +194,14 @@ alias showpush="git log --oneline @{u}.."
 # Use git colours when paging
 alias less="less -R"
 
-export TERM=$OSTYPE
+if [[ $string != *linux* ]] && [[ $string != *darwin* ]]; then
+    export TERM=$OSTYPE
 
-if type -a gvim >/dev/null 2>&1; then
-    export EDITOR=gedit
-else
-    export EDITOR=nedit
+    if type -a gvim >/dev/null 2>&1; then
+        export EDITOR=gedit
+    else
+        export EDITOR=nedit
+    fi
 fi
 
 if [ $OSTYPE = "cygwin" ]; then
