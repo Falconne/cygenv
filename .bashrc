@@ -37,9 +37,13 @@ shopt -s no_empty_cmd_completion
 #
 # Uncomment to turn on programmable completion enhancements.
 # Any completions you add in ~/.bash_completion are sourced last.
- [[ -f /etc/bash_completion ]] && . /etc/bash_completion
+[[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
- SCRIPT_DIR="$( cd "$( dirname $(readlink -f ~/.bashrc) )" && pwd )"
+if [[ $OSTYPE != *darwin* ]]; then
+    SCRIPT_DIR="$( dirname $(readlink -f ~/.bashrc) )"
+else
+    SCRIPT_DIR="$( cd "$( dirname $(readlink ~/.bashrc) )" && pwd )"
+fi
 
 . $SCRIPT_DIR/cygenv-files/git-completion.sh
 
@@ -142,7 +146,7 @@ if [ $OSTYPE != "msys" ]; then
     PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
 fi
 
-if [[ $string != *linux* ]] && [[ $string != *darwin* ]]; then
+if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     # Start gvim with converted paths and don't hang
     g () {
         cygstart gvim `cygpath -w $@`
@@ -194,7 +198,7 @@ alias showpush="git log --oneline @{u}.."
 # Use git colours when paging
 alias less="less -R"
 
-if [[ $string != *linux* ]] && [[ $string != *darwin* ]]; then
+if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     export TERM=$OSTYPE
 
     if type -a gvim >/dev/null 2>&1; then
