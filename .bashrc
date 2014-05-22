@@ -39,7 +39,7 @@ shopt -s no_empty_cmd_completion
 # Any completions you add in ~/.bash_completion are sourced last.
  [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
- SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ SCRIPT_DIR="$( cd "$( dirname $(readlink -f ~/.bashrc) )" && pwd )"
 
 . $SCRIPT_DIR/cygenv-files/git-completion.sh
 
