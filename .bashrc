@@ -24,7 +24,7 @@ shopt -s dirspell
 # The pattern ‘**’ used in a filename expansion context will match all files and zero or
 # more directories and subdirectories. If the pattern is followed by a ‘/’, only
 # directories and subdirectories match.
-# For example, 'cd **/*.App' will 
+# For example, 'cd **/*.App'.
 shopt -s globstar
 
 # Bash will not attempt to search the PATH for possible completions when completion is
@@ -126,7 +126,6 @@ bind '"\e[3;5~": kill-word'
 bind '"\C-_": backward-kill-word'
 
 # Ctrl+Shift+Backspace/Delete to delete to start/end of the line
-# Ctrl-w also does this
 bind '"\e[3;6~": kill-line'
 bind '"\xC2\x9F": backward-kill-line'
 
