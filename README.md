@@ -71,7 +71,7 @@ This section describes the features added by the .bashrc in this repo.
  * `Ctrl-y` pastes the last deleted content.
  * `Home/End` and `Ctrl-a/Ctrl-e` go to the beginning and end of line.
  
-### Git Specific Aliases
+### Git Specific Enhancements
 The following is a list of bash aliases to aid Git usage. These are bash aliases, not Git aliases, so you don't need to type `git` in front.
 
 To see the commands in detail, find them in the .bashrc file.
@@ -87,6 +87,7 @@ Keys|Action
 `gg` / `G`|Beginning / End of listing
 `q`|Quit
 
+#### Git Aliases
 Command|Action
 -------|------
 glo|One line git log of last 25 commits
