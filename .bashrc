@@ -39,10 +39,12 @@ shopt -s no_empty_cmd_completion
 # Any completions you add in ~/.bash_completion are sourced last.
 [[ -f /etc/bash_completion ]] && . /etc/bash_completion
 
-if [[ $OSTYPE != *darwin* ]]; then
-    SCRIPT_DIR="$( dirname $(readlink -f ~/.bashrc) )"
-else
+if [[ $OSTYPE = *cygwin* ]]; then
+    SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+elif [[ $OSTYPE = *darwin* ]]; then
     SCRIPT_DIR="$( cd "$( dirname $(readlink ~/.bashrc) )" && pwd )"
+else
+    SCRIPT_DIR="$( dirname $(readlink -f ~/.bashrc) )"
 fi
 
 . $SCRIPT_DIR/cygenv-files/git-completion.sh

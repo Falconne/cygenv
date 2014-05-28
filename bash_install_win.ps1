@@ -149,7 +149,7 @@ $wc.DownloadFile("http://cygwin.com/setup-x86.exe", $setupProg)
 pushd .
 chdir $setupDir
 $args = "-q -R $cygdir -n -g -o -s $site "
-$args += "--packages openssh,bash,mintty,curl"
+$args += "--packages openssh,bash,mintty,curl,chere"
 Start-Process -NoNewWindow -Wait $setupProg $args
 popd
 
