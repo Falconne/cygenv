@@ -134,7 +134,7 @@ function createBashrcWrapper()
 $setupDir = Join-Path $cygdir "setup"
 $setupProg = Join-Path $setupDir "setup-x86.exe"
 
-$upgrading = Test-Path $cygdir
+$upgrading = Test-Path (Join-Path $cygdir "bin")
 
 if ($upgrading)
 {
