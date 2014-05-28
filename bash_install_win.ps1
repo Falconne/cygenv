@@ -57,6 +57,7 @@ function writeProgress($msg)
 
 function isReparsePoint([string] $path)
 {
+    if (!(Test-Path $path)) { return $false }
     $file = Get-Item $path -Force -ea 0
     return [bool] ($file.Attributes -band [IO.FileAttributes]::ReparsePoint)
 }
@@ -104,10 +105,13 @@ function linkHomeDir()
     if (Test-Path $homeDirBak) { return }
     $realHomeDir = Join-Path $Env:HOMEDRIVE $Env:HOMEPATH
     if (!(Test-Path $realHomeDir)) { return }
-    Move-Item $cyghome $homeDirBak
+    if (Test-Path $cyghome)
+    {
+        Move-Item $cyghome $homeDirBak
+    }
     cmd.exe /c mklink /d $cyghome $realHomeDir
 
-    Copy-Item (Join-Path $homeDirBak ".inputrc") $cyghome
+    Copy-Item (Join-Path $scriptDir ".inputrc") $cyghome
 
     Copy-Item (Join-Path $scriptDir ".profile") $cyghome
 }
@@ -197,12 +201,6 @@ if (Test-Path $startMenuLnk)
 else
 {
     Copy-Item $lnkFile $startMenuLnk
-}
-
-if (!(Test-Path $cyghome))
-{
-    $Host.UI.WriteErrorLine("Cygwin home not found in $cyghome. Refer to 'Manual Configuration' instructions in Readme.")
-    finish 1
 }
 
 writeProgress "Synchronising home directory"
