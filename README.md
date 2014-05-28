@@ -64,7 +64,7 @@ This section describes the features added by the .bashrc in this repo.
  
  will take you there (or to the first hit if there are multiple possibilities).
  * If you are doing a history search with the Up Arrow for a previously used command, type the first few characters of that command first. Then only the history lines that begin with that text will be scrolled through.
- * `Alt-Left` cd's back through your directory history (similar to going backwards in Explorer). This can be used in conjunction with bash's built in `cd -` command to toggle between the current and previous directories.
+ * `Alt-Left` does a `cd` back through your directory history (similar to going backwards in Explorer). This can be used in conjunction with bash's built in `cd -` command to toggle between the current and previous directories.
  * `Alt-Up` will cd up one level.
  * `Ctrl-Left/Right` moves the cursor over whole words.
  * `Ctrl-Backspace` deletes a word (as does `Ctrl-w`).
@@ -99,7 +99,8 @@ cdr|cd to root of git repo
 showpush|Lists what commits need to be pushed in current branch
 sta|`git status`
 push| `git push`
-rpull|Does a git pull with rebase
+pull|`git pull`
+rpull|`pull` with rebase
 rpush|Does an `rpull` then `push`
 co|`git checkout`
 fetch|`git fetch`
