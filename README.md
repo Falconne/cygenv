@@ -72,6 +72,16 @@ This section describes the features added by the .bashrc in this repo.
  * `Alt-Backspace` undos the last delete.
  * `Ctrl-y` pastes the last deleted content.
  * `Home/End` and `Ctrl-a/Ctrl-e` go to the beginning and end of line.
+
+### Enhanced Prompt
+When in a git repo, the prompt displays how far ahead/behind the upstream you are. You can show more info by uncommenting the following lines in the .bashrc file:
+
+````
+#GIT_PS1_SHOWDIRTYSTATE=true
+#GIT_PS1_SHOWUNTRACKEDFILES=true
+````
+
+However on extremely large repos, this can slow down the prompt display.
  
 ### Git Specific Enhancements
 The following is a list of bash aliases to aid Git usage. These are bash aliases, not Git aliases, so you don't need to type `git` in front.
