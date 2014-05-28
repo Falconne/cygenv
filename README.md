@@ -28,6 +28,7 @@ If you haven't used a Linux terminal much, this section explains some difference
   * Middle click or `Shift-Insert` pastes clipboard contents.
   * Selection works like a standard editor (double click to select words, triple click to select lines, etc).
   * Right click brings up a context menu. You can bring up the program's Options menu from here.
+  * Left click moves the cursor around.
   * The terminal is free sizeable. `Alt-Enter` toggles full screen mode.
   * `Shift-PgUp/PgDn` and scrollwheel scrolls.
   
@@ -74,6 +75,13 @@ This section describes the features added by the .bashrc in this repo.
  * `Home/End` and `Ctrl-a/Ctrl-e` go to the beginning and end of line.
 
 ### Enhanced Prompt
+After installation, you should have a coloured prompt similar to:
+
+````
+--[joebloggs@JBs-Desktop /cygdrive/c/git/myrepo] (master u=)------------------------]--
+--[
+````
+
 When in a git repo, the prompt displays how far ahead/behind the upstream you are. You can show more info by uncommenting the following lines in the .bashrc file:
 
 ````
