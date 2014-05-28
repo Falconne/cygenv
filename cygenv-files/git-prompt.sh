@@ -268,7 +268,7 @@ draw_line() {
     str=`echo $str | sed -e 's/\\\\\[//g'`
     str=`echo $str | sed -e 's/\\\\\]//g'`
     fill=""
-    num_fillers=$(($COLUMNS - ${#str}))
+    num_fillers=$(($COLUMNS - ${#str} + 5))
     if [ $num_fillers -gt 0 ]; then
         fill=${fillers:0:$num_fillers}
     fi
