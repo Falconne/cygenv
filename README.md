@@ -13,6 +13,8 @@ Clone this repo and run `bash_install_win.bat`. That is all. This script automat
 
 :warning: Do not delete the cloned repo after installation, as the various bash scripts will be referenced directly out of this clone (only a wrapper script is added to your home directory).
 
+Running `bash_install_win.bat` regularly will update Cygwin with the latest packages.
+
 ## Linux and OSX
 Clone this repo and create a `~/.bashrc symlink` to the `.bashrc` file in this repo. Create a `~/bashrc_custom` file and add any custom commands in there; it is run after .bashrc finishes.
 
