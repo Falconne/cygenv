@@ -267,6 +267,7 @@ draw_line() {
     str=$(echo -e $str_raw)
     str=`echo $str | sed -e 's/\\\\\[//g'`
     str=`echo $str | sed -e 's/\\\\\]//g'`
+    str=`echo $str | sed 's/\x1b\[[0-9;]*m//g'`
     fill=""
     num_fillers=$(($COLUMNS - ${#str} + 5))
     if [ $num_fillers -gt 0 ]; then
