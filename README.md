@@ -64,6 +64,9 @@ This section describes the features added by the .bashrc in this repo.
  ````
  
  will take you there (or to the first hit if there are multiple possibilities).
+
+ Note that you cannot combine this with the previous tip (i.e., you cannot ommit `cd` when using `**`)
+
  * If you are doing a history search with the Up Arrow for a previously used command, type the first few characters of that command first. Then only the history lines that begin with that text will be scrolled through.
  * `Alt-Left` does a `cd` back through your directory history (similar to going backwards in Explorer). This can be used in conjunction with bash's built in `cd -` command to toggle between the current and previous directories.
  * `Alt-Up` will cd up one level.
