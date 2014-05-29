@@ -55,6 +55,11 @@ function writeProgress($msg)
     Write-Host $msg -ForegroundColor DarkYellow
 }
 
+function writeError($msg)
+{
+    Write-Host $msg -ForegroundColor Red
+}
+
 function isReparsePoint([string] $path)
 {
     if (!(Test-Path $path)) { return $false }
@@ -145,96 +150,105 @@ else
     writeHeading "Fresh install started"
 }
 
-if (!(Test-Path $setupDir)) { md $setupDir }
-writeProgress "Fetching latest Cygwin installer"
-$wc = New-Object System.Net.WebClient
-$wc.DownloadFile("http://cygwin.com/setup-x86.exe", $setupProg)
-
-pushd .
-chdir $setupDir
-$args = "-q -R $cygdir -n -g -o -s $site "
-$args += "--packages openssh,bash,mintty,curl,chere"
-Start-Process -NoNewWindow -Wait $setupProg $args
-popd
-
-writeHeading "Creating shortcuts"
-$wshShell = New-Object -comObject WScript.Shell
-$lnkArgs = "--hold never -i /Cygwin-Terminal.ico -"
-
-$desktop =  $wshShell.SpecialFolders.Item("AllUsersDesktop")
-if (!(Test-Path $desktop)) { $desktop = "$Home\Desktop" }
-$lnkFile = Join-Path $desktop "Cygwin Terminal.lnk"
-if (Test-Path $lnkFile)
+try
 {
-    writeProgress "Desktop shortcut exists"
-    $shortcut = $wshShell.CreateShortcut($lnkFile)
-    if ($shortcut.Arguments -ne $lnkArgs)
+    if (!(Test-Path $setupDir)) { md $setupDir }
+    writeProgress "Fetching latest Cygwin installer"
+    $wc = New-Object System.Net.WebClient
+    $wc.DownloadFile("http://cygwin.com/setup-x86.exe", $setupProg)
+
+    pushd .
+    chdir $setupDir
+    $args = "-q -R $cygdir -n -g -o -s $site "
+    $args += "--packages openssh,bash,mintty,curl,chere"
+    Start-Process -NoNewWindow -Wait $setupProg $args
+    popd
+
+    writeHeading "Creating shortcuts"
+    $wshShell = New-Object -comObject WScript.Shell
+    $lnkArgs = "--hold never -i /Cygwin-Terminal.ico -"
+
+    $desktop =  $wshShell.SpecialFolders.Item("AllUsersDesktop")
+    if (!(Test-Path $desktop)) { $desktop = "$Home\Desktop" }
+    $lnkFile = Join-Path $desktop "Cygwin Terminal.lnk"
+    if (Test-Path $lnkFile)
     {
-        writeProgress "Arguments need updating"
-        $shortcut.Arguments = $lnkArgs
-        $shortcut.Save()
-    }
-}
-else
-{
-    $shortcut = $wshShell.CreateShortcut($lnkFile)
-    $shortcut.TargetPath = Join-Path $cygdir "bin\mintty.exe"
-    $shortcut.Arguments = $lnkArgs
-    $shortcut.Save()
-}
-
-$startMenu =  $wshShell.SpecialFolders.Item("AllUsersStartMenu")
-if (!(Test-Path $startMenu)) { $startMenu = "$Home\Start Menu" }
-$startMenuDir = Join-Path $startMenu "Programs\Cygwin"
-$startMenuLnk = Join-Path $startMenuDir "Cygwin Terminal.lnk"
-if (Test-Path $startMenuLnk)
-{
-    writeProgress "Start Menu shortcut exists"
-    $shortcut = $wshShell.CreateShortcut($startMenuLnk)
-    if ($shortcut.Arguments -ne $lnkArgs)
-    {
-        writeProgress "Arguments need updating"
-        $shortcut.Arguments = $lnkArgs
-        $shortcut.Save()
-    }
-}
-else
-{
-    Copy-Item $lnkFile $startMenuLnk
-}
-
-writeProgress "Synchronising home directory"
-linkHomeDir
-createBashrcWrapper
-
-$minttyrc = Join-Path $cyghome ".minttyrc"
-if (!(Test-Path $minttyrc))
-{
-    $minttyrcRepo = Join-Path $scriptDir ".minttyrc"
-    writeProgress "Copying default mintty config"
-    Copy-Item $minttyrcRepo $minttyrc
-}
-
-writeHeading "Checking for CYGWIN variable"
-if (Test-Path Env:\CYGWIN)
-{
-    $value = $Env:CYGWIN
-    if ($value -notlike "*nodosfilewarning*")
-    {
-        $value += " nodosfilewarning"
-        writeProgress "Setting value to $value"
-        [Environment]::SetEnvironmentVariable("CYGWIN", $value, "Machine")
+        writeProgress "Desktop shortcut exists"
+        $shortcut = $wshShell.CreateShortcut($lnkFile)
+        if ($shortcut.Arguments -ne $lnkArgs)
+        {
+            writeProgress "Arguments need updating"
+            $shortcut.Arguments = $lnkArgs
+            $shortcut.Save()
+        }
     }
     else
     {
-        writeProgress "Variable already set"
+        $shortcut = $wshShell.CreateShortcut($lnkFile)
+        $shortcut.TargetPath = Join-Path $cygdir "bin\mintty.exe"
+        $shortcut.Arguments = $lnkArgs
+        $shortcut.Save()
     }
-}
-else
-{
-    writeProgress "Creating variable"
-    [Environment]::SetEnvironmentVariable("CYGWIN", "nodosfilewarning", "Machine")
-}
 
-writeHeading "All done."
-finish 0
+    $startMenu =  $wshShell.SpecialFolders.Item("AllUsersStartMenu")
+    if (!(Test-Path $startMenu)) { $startMenu = "$Home\Start Menu" }
+    $startMenuDir = Join-Path $startMenu "Programs\Cygwin"
+    $startMenuLnk = Join-Path $startMenuDir "Cygwin Terminal.lnk"
+    if (Test-Path $startMenuLnk)
+    {
+        writeProgress "Start Menu shortcut exists"
+        $shortcut = $wshShell.CreateShortcut($startMenuLnk)
+        if ($shortcut.Arguments -ne $lnkArgs)
+        {
+            writeProgress "Arguments need updating"
+            $shortcut.Arguments = $lnkArgs
+            $shortcut.Save()
+        }
+    }
+    else
+    {
+        if (!(Test-Path $startMenuDir)) { mkdir -p $startMenuDir }
+        Copy-Item $lnkFile $startMenuLnk
+    }
+
+    writeProgress "Synchronising home directory"
+    linkHomeDir
+    createBashrcWrapper
+
+    $minttyrc = Join-Path $cyghome ".minttyrc"
+    if (!(Test-Path $minttyrc))
+    {
+        $minttyrcRepo = Join-Path $scriptDir ".minttyrc"
+        writeProgress "Copying default mintty config"
+        Copy-Item $minttyrcRepo $minttyrc
+    }
+
+    writeHeading "Checking for CYGWIN variable"
+    if (Test-Path Env:\CYGWIN)
+    {
+        $value = $Env:CYGWIN
+        if ($value -notlike "*nodosfilewarning*")
+        {
+            $value += " nodosfilewarning"
+            writeProgress "Setting value to $value"
+            [Environment]::SetEnvironmentVariable("CYGWIN", $value, "Machine")
+        }
+        else
+        {
+            writeProgress "Variable already set"
+        }
+    }
+    else
+    {
+        writeProgress "Creating variable"
+        [Environment]::SetEnvironmentVariable("CYGWIN", "nodosfilewarning", "Machine")
+    }
+
+    writeHeading "All done."
+    finish 0
+}
+catch
+{
+    writeError $_.Exception.ToString()
+    finish 1
+}
