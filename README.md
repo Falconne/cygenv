@@ -45,6 +45,7 @@ This section describes the features added by the .bashrc in this repo.
 
 ### Bash Enhancements
  * Minor spelling errors in a `cd` command are automatically corrected. This also works during tab expansion.
+ * `cd` comamnds are case insensitive.
  * You can cd to a directory just by typing a path, i.e.:
  
  ````
@@ -76,6 +77,13 @@ This section describes the features added by the .bashrc in this repo.
  * `Alt-Backspace` undos the last delete.
  * `Ctrl-y` pastes the last deleted content.
  * `Home/End` and `Ctrl-a/Ctrl-e` go to the beginning and end of line.
+ * If gvim is installed, the alias `g` with a cygwin path to a file will open gvim with the path automatically converted to Windows style, e.g.:
+ 
+  ````
+  g temp/foo.txt
+  ````
+
+  will not be a problem.
 
 ### Enhanced Prompt
 After installation, you should have a coloured prompt similar to:
