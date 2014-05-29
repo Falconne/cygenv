@@ -20,7 +20,7 @@ Clone this repo and create a `~/.bashrc symlink` to the `.bashrc` file in this r
 
 # Usage
 ## Launching Cygwin Terminal
-Run the shortcut called "Cygwin Terminal". This will open mintty.
+Run the shortcut called "Cygwin Terminal" (in the Start Menu and the Desktop). This will open mintty.
 
 ## Terminal Basics
 If you haven't used a Linux terminal much, this section explains some differences between Cygwin terminals and the Windows terminal.
