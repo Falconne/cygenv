@@ -124,7 +124,7 @@ Command|Action
 glo|One line git log of last 25 commits
 gl|Decorated one line git log of full history, with branch tree and colouring, piped to `less`.
 glog|Same as `glo`, but not piped to `less`. Add your own scope restricting options as you would to the end of any `git log` command.
-gld|Does a `git log` of the last 4 days work with full commit info including diffs piped to `less`. Useful for finding who touched a specific keyword recently. Use the search keys for `less` listed above.
+gld|Does a `git log` of the last 4 days work with full commit info, including diffs, piped to `less`. Useful for finding who touched a specific keyword recently. Use the search keys for `less` listed above.
 cdr|cd to root of git repo
 showpush|Lists what commits need to be pushed in current branch
 sta|`git status`
