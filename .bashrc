@@ -162,8 +162,13 @@ if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     }
 fi
 
-alias ld="ls --color=tty"
-alias ls="ls --color=tty"
+if [[ $OSTYPE = *darwin* ]]; then
+    alias ld="ls -G"
+    alias ls="ls -G"
+else
+    alias ld="ls --color=tty"
+    alias ls="ls --color=tty"
+fi
 # alias ls='ls -hF --color=tty'                 # classify files in colour
 # alias dir='ls --color=auto --format=vertical'
 # alias vdir='ls --color=auto --format=long'
