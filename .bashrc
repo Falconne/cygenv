@@ -150,15 +150,15 @@ fi
 if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     # Start gvim with converted paths and don't hang
     g () {
-        cygstart gvim `cygpath -w $@`
+        cygstart gvim `cygpath -w "$@"`
     }
 
     gedit () {
-        gvim `cygpath -w $@`
+        gvim "`cygpath -w $@`"
     }
 
     nedit () {
-        notepad `cygpath -w $@`
+        notepad "`cygpath -w $@`"
     }
 fi
 
