@@ -81,7 +81,7 @@ export HISTIGNORE="&:[ \t]:l[sl]:[bf]g:exit"
 #
 # Default to human readable figures
  alias df='df --si'
- alias du='du -si'
+ alias du='du --si'
 #
 # alias whence='type -a'                        # where, of a sort
 #
