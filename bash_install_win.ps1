@@ -102,14 +102,27 @@ function isHomeDirLinked($createBashrcBackup)
     return $false
 }
 
+# Symlink Cygwin home to Windows Home
 function linkHomeDir()
 {
+    # Check if we've already done it before
     if (isReparsePoint $cyghome) { return }
     if (isHomeDirLinked $false) { return }
     $homeDirBak = $cyghome + ".cebak"
     if (Test-Path $homeDirBak) { return }
+
+    # Not been symlinked
+    writeHeading "Symlink Cygwin home to Windows Home"
     $realHomeDir = Join-Path $Env:HOMEDRIVE $Env:HOMEPATH
+
+    # Determine if Windows home path is mapped remote
+    if (Test-Path Env:\HOMESHARE)
+    {
+        $realHomeDir = $Env:HOMESHARE
+    }
+
     if (!(Test-Path $realHomeDir)) { return }
+    writeProgress "Windows Home is $realHomeDir"
     if (Test-Path $cyghome)
     {
         Move-Item $cyghome $homeDirBak
@@ -211,7 +224,6 @@ try
         Copy-Item $lnkFile $startMenuLnk
     }
 
-    writeProgress "Synchronising home directory"
     linkHomeDir
     createBashrcWrapper
 
