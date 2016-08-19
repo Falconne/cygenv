@@ -49,6 +49,8 @@ Plugin 'PProvost/vim-ps1'
 nmap <C-Up> [c
 nmap <C-Down> ]c
 
+Plugin 'godlygeek/tabular'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -74,20 +76,20 @@ autocmd BufRead     *.bat      set nosi
 autocmd BufRead     *.xml      set iskeyword+=.
 autocmd BufRead     *.xml      set iskeyword+=-
 
-autocmd BufRead     *.targets       set iskeyword+=.
-autocmd BufRead     *.targets       set iskeyword+=-
-autocmd BufRead     *.targets       set filetype=xml
+autocmd BufRead     *.targets  set iskeyword+=.
+autocmd BufRead     *.targets  set iskeyword+=-
+autocmd BufRead     *.targets  set filetype=xml
 
-autocmd BufRead     *.bsh       set syn=java
-autocmd BufRead     *.groovy    set syn=java
+autocmd BufRead     *.bsh      set syn=java
+autocmd BufRead     *.groovy   set syn=java
 
-autocmd BufRead     *.ps*       set iskeyword+=-
-autocmd BufRead     *.ps*       set nocin
+autocmd BufRead     *.ps*      set iskeyword+=-
+autocmd BufRead     *.ps*      set nocin
 
-autocmd BufRead     *.build     set shiftwidth=2
-autocmd BufRead     *.build     set tabstop=2
-autocmd BufRead     *.build     set iskeyword+=.
-autocmd BufRead     *.build     set iskeyword+=-
+autocmd BufRead     *.build    set shiftwidth=2
+autocmd BufRead     *.build    set tabstop=2
+autocmd BufRead     *.build    set iskeyword+=.
+autocmd BufRead     *.build    set iskeyword+=-
 
 set colorcolumn=120
 
