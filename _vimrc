@@ -34,8 +34,10 @@ Plugin 'PProvost/vim-ps1'
 Plugin 'kshenoy/vim-signature'
 Plugin 'godlygeek/tabular'
 Plugin 'haya14busa/incsearch.vim'
-"Plugin 'matze/vim-move'
 Plugin 'terryma/vim-expand-region'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'vim-scripts/YankRing.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -57,8 +59,8 @@ set laststatus=2
 nmap <F3> :NumbersToggle<CR>
 let g:enable_numbers = 0
 
-nmap <C-n> :CtrlPMRU<CR>
-nmap <C-e> :CtrlPBuffer<CR>
+nmap <C-m> :CtrlPMRU<CR>
+nmap <C-B> :CtrlPBuffer<CR>
 nmap <C-t> :CtrlP<CR>
 
 nmap <C-M-Up> ['
@@ -67,15 +69,22 @@ nmap <C-M-Down> ]'
 nmap <C-Up> [c
 nmap <C-Down> ]c
 
-
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-let g:move_key_modifier = 'C'
+map = <Plug>(expand_region_expand)
+map - <Plug>(expand_region_shrink)
 
-"map = <Plug>(expand_region_expand)
-"map - <Plug>(expand_region_shrink)
+nmap <F5> <Plug>NERDCommenterComment<Down>
+nmap <S-F5> <Plug>NERDCommenterUncomment<Down>
+vmap <F5> <Plug>NERDCommenterComment<Down>
+vmap <S-F5> <Plug>NERDCommenterUncomment<Down>
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+
+nmap <silent> <F11> :YRShow<CR>
 
 set noswapfile
 set gfn=Anonymous_Pro:h16:cANSI
@@ -125,7 +134,7 @@ set tabstop=4                     " number of spaces for a <Tab>
 set shiftwidth=4                  " autoindent spaces
 set backspace=indent,eol,start
 " paste and indent correctly
-nmap <C-p> P=`]
+nmap <M-p> P=`]
 
 set guioptions+=a                 " autoselect (basically make copy/paste work)
 set ru                            " show cursor position below each window
@@ -205,7 +214,7 @@ function! InsertTabWrapper()
       if !col || getline('.')[col - 1] !~ '\k'
           return "\<tab>"
       else
-          return "\<c-p>"
+          return "\<M-p>"
       endif
 endfunction
 
