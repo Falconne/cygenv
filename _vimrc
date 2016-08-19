@@ -37,7 +37,7 @@ nmap <F3> :NumbersToggle<CR>
 let g:enable_numbers = 0
 
 Plugin 'ctrlpvim/ctrlp.vim'
-nmap <C-o> :CtrlPMRU<CR>
+nmap <C-n> :CtrlPMRU<CR>
 nmap <C-e> :CtrlPBuffer<CR>
 nmap <C-t> :CtrlP<CR>
 
@@ -50,6 +50,11 @@ nmap <C-Up> [c
 nmap <C-Down> ]c
 
 Plugin 'godlygeek/tabular'
+
+Plugin 'haya14busa/incsearch.vim'
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -104,8 +109,8 @@ set list                          " Show trailing whitespace
 set expandtab                     " use spaces not tabs
 set smarttab
 set si                            " set smartindent do clever autoindenting
-inoremap <S-Tab> <Left><Left>     " change shitf+tab to move back one
-inoremap # X<BS>#                 " disable # indenting
+imap <S-Tab> <Left><Left>         " change shitf+tab to move back one
+imap # X<BS>#                     " disable # indenting
 set ai                            " automatically set the indent of a
 set cink=0{,*},e
 set tabstop=4                     " number of spaces for a <Tab>
