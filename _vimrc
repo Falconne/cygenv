@@ -59,9 +59,8 @@ set laststatus=2
 nmap <F3> :NumbersToggle<CR>
 let g:enable_numbers = 0
 
-nmap <C-m> :CtrlPMRU<CR>
-nmap <C-B> :CtrlPBuffer<CR>
-nmap <C-t> :CtrlP<CR>
+nmap <F2> :CtrlPMRU<CR>
+nmap <S-F2> :CtrlPBuffer<CR>
 
 nmap <C-M-Up> ['
 nmap <C-M-Down> ]'
