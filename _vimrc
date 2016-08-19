@@ -25,36 +25,16 @@ Plugin 'Yggdroot/indentLine'
 
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-set laststatus=2
-
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mbbill/undotree'
 Plugin 'jiangmiao/auto-pairs'
-
-set number
 Plugin 'myusuf3/numbers.vim'
-nmap <F3> :NumbersToggle<CR>
-let g:enable_numbers = 0
-
 Plugin 'ctrlpvim/ctrlp.vim'
-nmap <C-n> :CtrlPMRU<CR>
-nmap <C-e> :CtrlPBuffer<CR>
-nmap <C-t> :CtrlP<CR>
-
-Plugin 'kshenoy/vim-signature'
-nmap <C-M-Up> ['
-nmap <C-M-Down> ]'
-
 Plugin 'PProvost/vim-ps1'
-nmap <C-Up> [c
-nmap <C-Down> ]c
-
+Plugin 'kshenoy/vim-signature'
 Plugin 'godlygeek/tabular'
-
 Plugin 'haya14busa/incsearch.vim'
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+Plugin 'matze/vim-move'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -70,6 +50,28 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+set number
+set laststatus=2
+nmap <F3> :NumbersToggle<CR>
+let g:enable_numbers = 0
+
+nmap <C-n> :CtrlPMRU<CR>
+nmap <C-e> :CtrlPBuffer<CR>
+nmap <C-t> :CtrlP<CR>
+
+nmap <C-M-Up> ['
+nmap <C-M-Down> ]'
+
+nmap <C-Up> [c
+nmap <C-Down> ]c
+
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+let g:move_key_modifier = 'C'
 
 set noswapfile
 set gfn=Anonymous_Pro:h16:cANSI
@@ -109,19 +111,23 @@ set list                          " Show trailing whitespace
 set expandtab                     " use spaces not tabs
 set smarttab
 set si                            " set smartindent do clever autoindenting
-imap <S-Tab> <Left><Left>         " change shitf+tab to move back one
-imap # X<BS>#                     " disable # indenting
+" change shitf+tab to move back one
+imap <S-Tab> <Left><Left>
+" disable # indenting
+imap # X<BS>#
 set ai                            " automatically set the indent of a
 set cink=0{,*},e
 set tabstop=4                     " number of spaces for a <Tab>
 set shiftwidth=4                  " autoindent spaces
 set backspace=indent,eol,start
-nmap <C-p> P=`]                   " paste and indent correctly
+" paste and indent correctly
+nmap <C-p> P=`]
 
 set guioptions+=a                 " autoselect (basically make copy/paste work)
 set ru                            " show cursor position below each window
-
+" Duplicate line
 nmap <C-j> yyp
+nmap <Esc><Esc> :noh<CR>
 
 set nostartofline                 " on ctrl-d/u/b/d,H,G,M,L do not move
                                   " to beggining of line
