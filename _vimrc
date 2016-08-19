@@ -38,7 +38,7 @@ let g:enable_numbers = 0
 
 Plugin 'ctrlpvim/ctrlp.vim'
 nmap <C-o> :CtrlPMRU<CR>
-nmap <C-b> :CtrlPBuffer<CR>
+nmap <C-e> :CtrlPBuffer<CR>
 nmap <C-t> :CtrlP<CR>
 
 Plugin 'kshenoy/vim-signature'
@@ -71,8 +71,7 @@ set gfn=Anonymous_Pro:h16:cANSI
 
 autocmd BufRead     *.mak      set noexpandtab
 autocmd BufRead     *.bat      set nosi
-"
-"Word delimiters
+
 autocmd BufRead     *.xml      set iskeyword+=.
 autocmd BufRead     *.xml      set iskeyword+=-
 
@@ -99,41 +98,41 @@ syntax on
 filetype on
 
 set lcs=tab:\>\-,trail:_
-set list                      "Show trailing whitespace
+set list                          " Show trailing whitespace
 
 " Indentation
-set expandtab                 "use spaces not tabs
+set expandtab                     " use spaces not tabs
 set smarttab
-set si                        "set smartindent do clever autoindenting
-inoremap <S-Tab> <Left><Left> "change shitf+tab to move back one
-inoremap # X<BS>#             "disable # indenting
-set ai                        "automatically set the indent of a
+set si                            " set smartindent do clever autoindenting
+inoremap <S-Tab> <Left><Left>     " change shitf+tab to move back one
+inoremap # X<BS>#                 " disable # indenting
+set ai                            " automatically set the indent of a
 set cink=0{,*},e
-set tabstop=4                 "number of spaces for a <Tab>
-set shiftwidth=4              "autoindent spaces
+set tabstop=4                     " number of spaces for a <Tab>
+set shiftwidth=4                  " autoindent spaces
 set backspace=indent,eol,start
-nmap <C-p> P=`]               "paste and indent correctly
+nmap <C-p> P=`]                   " paste and indent correctly
 
-set guioptions+=a  "autoselect (basically make copy/paste work)
-set ru             "show cursor position below each window
+set guioptions+=a                 " autoselect (basically make copy/paste work)
+set ru                            " show cursor position below each window
 
 nmap <C-j> yyp
 
-set nostartofline            "on ctrl-d/u/b/d,H,G,M,L do not move
-                             "to beggining of line
+set nostartofline                 " on ctrl-d/u/b/d,H,G,M,L do not move
+                                  " to beggining of line
 
-set mps=(:),{:},[:]          "for % pair matching
+set mps=(:),{:},[:]               " for % pair matching
 set showmatch
 set mat=5
 
-set hls                      "highlight all matches for the current
+set hls                           " highlight all matches for the current
 set keymodel=startsel,stopsel
 set selection=inclusive
 behave mswin
 
-set wc=^I                    "wildcard is tab (commandline expansion)"
-set hi=20                    "remember last 20 commands"
-set wmnu                     "use a menu for tab completion"
+set wc=^I                         " wildcard is tab (commandline expansion)"
+set hi=20                         " remember last 20 commands"
+set wmnu                          " use a menu for tab completion"
 set wildmode=longest,full
 
 set incsearch
