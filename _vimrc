@@ -34,7 +34,7 @@ Plugin 'PProvost/vim-ps1'
 Plugin 'kshenoy/vim-signature'
 Plugin 'godlygeek/tabular'
 Plugin 'haya14busa/incsearch.vim'
-Plugin 'matze/vim-move'
+"Plugin 'matze/vim-move'
 Plugin 'terryma/vim-expand-region'
 
 " All of your Plugins must be added before the following line
@@ -74,8 +74,8 @@ map g/ <Plug>(incsearch-stay)
 
 let g:move_key_modifier = 'C'
 
-map = <Plug>(expand_region_expand)
-map - <Plug>(expand_region_shrink)
+"map = <Plug>(expand_region_expand)
+"map - <Plug>(expand_region_shrink)
 
 set noswapfile
 set gfn=Anonymous_Pro:h16:cANSI
@@ -214,4 +214,4 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 map <C-e> :Explore<CR>
 
 set history=999
-nmap <C-u> UndotreeToggle
+nmap U :UndotreeToggle<CR>
