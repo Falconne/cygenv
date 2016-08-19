@@ -35,6 +35,7 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'godlygeek/tabular'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'matze/vim-move'
+Plugin 'terryma/vim-expand-region'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -72,6 +73,9 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 let g:move_key_modifier = 'C'
+
+map = <Plug>(expand_region_expand)
+map - <Plug>(expand_region_shrink)
 
 set noswapfile
 set gfn=Anonymous_Pro:h16:cANSI
