@@ -237,4 +237,4 @@ map <C-e> :Explore<CR>
 set history=999
 nmap U :UndotreeToggle<CR>
 
-nmap <F10> :!start /b cmd /c "C:\Program Files (x86)\GitExtensions\GitExtensions.exe" commit .<CR>
+nmap <F10> :!start /b cmd /c "C:\Program Files (x86)\GitExtensions\GitExtensions.exe" commit %:p:h<CR>
