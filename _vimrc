@@ -35,7 +35,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'PProvost/vim-ps1'
 Plugin 'kshenoy/vim-signature'
 Plugin 'godlygeek/tabular'
-Plugin 'haya14busa/incsearch.vim'
+"Plugin 'haya14busa/incsearch.vim'
 Plugin 'terryma/vim-expand-region'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -79,9 +79,9 @@ vmap ( S(
 vmap [ S[
 
 " Highlight all matches in incremental search (plugin)
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+"map /  <Plug>(incsearch-forward)
+"map ?  <Plug>(incsearch-backward)
+"map g/ <Plug>(incsearch-stay)
 
 " Expand section by scope
 map + <Plug>(expand_region_expand)
