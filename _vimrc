@@ -1,5 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+let g:zenburn_old_Visual = 1  " More visible visual
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/vimfiles/bundle/Vundle.vim
@@ -18,6 +19,7 @@ Plugin 'L9'
 "Plugin 'scrooloose/nerdtree'
 
 Plugin 'Zenburn'
+" Colour scheme is read by other plugins so must be loaded now
 colorscheme Zenburn
 
 "Plugin 'nathanaelkane/vim-indent-guides'
@@ -92,9 +94,11 @@ nmap <S-F5> <Plug>NERDCommenterUncomment<Down>
 vmap <F5> <Plug>NERDCommenterComment<Down>
 vmap <S-F5> <Plug>NERDCommenterUncomment<Down>
 
+" Enable plugin
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 
+" Show YankRing
 nmap <silent> <F11> :YRShow<CR>
 
 set noswapfile
@@ -121,6 +125,7 @@ autocmd BufRead     *.build    set tabstop=2
 autocmd BufRead     *.build    set iskeyword+=.
 autocmd BufRead     *.build    set iskeyword+=-
 
+" Marker at column 120
 set colorcolumn=120
 
 set nobackup
@@ -134,12 +139,8 @@ set list                          " Show trailing whitespace
 " Indentation
 set expandtab                     " use spaces not tabs
 set smarttab
-set si                            " set smartindent do clever autoindenting
-" change shitf+tab to move back one
-imap <S-Tab> <Left><Left>
-" disable # indenting
-imap # X<BS>#
-set ai                            " automatically set the indent of a
+set si
+set ai
 set cink=0{,*},e
 set tabstop=4                     " number of spaces for a <Tab>
 set shiftwidth=4                  " autoindent spaces
@@ -236,3 +237,5 @@ map <C-e> :Explore<CR>
 
 set history=999
 nmap U :UndotreeToggle<CR>
+
+nmap <F10> :!start /b cmd /c "C:\Program Files (x86)\GitExtensions\GitExtensions.exe" commit .<CR>
