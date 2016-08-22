@@ -38,6 +38,7 @@ Plugin 'terryma/vim-expand-region'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/YankRing.vim'
+Plugin 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -60,21 +61,32 @@ nmap <F3> :NumbersToggle<CR>
 let g:enable_numbers = 0
 
 nmap <F2> :CtrlPMRU<CR>
-nmap <S-F2> :CtrlPBuffer<CR>
+nmap <S-F2> :CtrlP<CR>
 
+" Navigate bookmarks in file with Alt-Ctrl-Arrows
 nmap <C-M-Up> ['
 nmap <C-M-Down> ]'
 
+" Navigate change hunks in file with Ctrl-Arrows
 nmap <C-Up> [c
 nmap <C-Down> ]c
 
+" Surround visual selection with brackets (plugin)
+vmap { S{
+vmap ( S(
+vmap [ S[
+
+" Highlight all matches in incremental search (plugin)
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-map = <Plug>(expand_region_expand)
-map - <Plug>(expand_region_shrink)
+" Expand section by scope
+map + <Plug>(expand_region_expand)
+" Shrink section by scope
+map _ <Plug>(expand_region_shrink)
 
+"(Un)comment line and move down
 nmap <F5> <Plug>NERDCommenterComment<Down>
 nmap <S-F5> <Plug>NERDCommenterUncomment<Down>
 vmap <F5> <Plug>NERDCommenterComment<Down>
@@ -132,8 +144,9 @@ set cink=0{,*},e
 set tabstop=4                     " number of spaces for a <Tab>
 set shiftwidth=4                  " autoindent spaces
 set backspace=indent,eol,start
-" paste and indent correctly
-nmap <M-p> P=`]
+
+" Split line at cursor
+nmap <C-k> i<CR><Esc>
 
 set guioptions+=a                 " autoselect (basically make copy/paste work)
 set ru                            " show cursor position below each window
@@ -213,7 +226,7 @@ function! InsertTabWrapper()
       if !col || getline('.')[col - 1] !~ '\k'
           return "\<tab>"
       else
-          return "\<M-p>"
+          return "\<C-n>"
       endif
 endfunction
 
