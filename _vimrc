@@ -159,7 +159,7 @@ set nostartofline                 " on ctrl-d/u/b/d,H,G,M,L do not move
                                   " to beggining of line
 
 set mps=(:),{:},[:]               " for % pair matching
-set showmatch
+set showmatch                     " Show matching brace with cursor
 set mat=5
 
 set hls                           " highlight all matches for the current
@@ -168,7 +168,6 @@ set selection=inclusive
 behave mswin
 
 set wc=^I                         " wildcard is tab (commandline expansion)"
-set hi=20                         " remember last 20 commands"
 set wmnu                          " use a menu for tab completion"
 set wildmode=longest,full
 
