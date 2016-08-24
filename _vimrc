@@ -255,3 +255,6 @@ nmap W bvw
 
 " Paste and format
 nmap <c-p> p=`]
+
+" Search and replace for word under cursor
+nmap <F4> :%s/<C-r><C-w>//gc<Left><Left><Left>
