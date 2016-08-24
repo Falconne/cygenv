@@ -43,6 +43,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/Windows-PowerShell-indent-enhanced'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -75,11 +76,12 @@ nmap <C-M-Down> ]'
 nmap <C-Up> [c
 nmap <C-Down> ]c
 
-" Surround visual selection with brackets without inner space
-" (plugin)
+" Surround visual selection with braces/quotes inner space (plugin)
 vmap { S}
 vmap ( S)
 vmap [ S]
+vmap " S"
+vmap ' S'
 
 " Highlight all matches in incremental search (plugin)
 "map /  <Plug>(incsearch-forward)
@@ -126,7 +128,7 @@ autocmd BufRead     *.bsh      set syn=java
 autocmd BufRead     *.groovy   set syn=java
 
 autocmd BufRead     *.ps*      set iskeyword+=-
-autocmd BufRead     *.ps*      set nocin
+"autocmd BufRead     *.ps*      set nocin
 
 autocmd BufRead     *.build    set shiftwidth=2
 autocmd BufRead     *.build    set tabstop=2
