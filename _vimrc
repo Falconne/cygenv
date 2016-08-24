@@ -37,13 +37,11 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'PProvost/vim-ps1'
 Plugin 'kshenoy/vim-signature'
 Plugin 'godlygeek/tabular'
-"Plugin 'haya14busa/incsearch.vim'
 Plugin 'terryma/vim-expand-region'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'vim-scripts/YankRing.vim'
 Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/Windows-PowerShell-indent-enhanced'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -114,27 +112,6 @@ let g:gitgutter_realtime = 0
 set noswapfile
 set gfn=Anonymous_Pro:h16:cANSI
 
-autocmd BufRead     *.mak      set noexpandtab
-autocmd BufRead     *.bat      set nosi
-
-autocmd BufRead     *.xml      set iskeyword+=.
-autocmd BufRead     *.xml      set iskeyword+=-
-
-autocmd BufRead     *.targets  set iskeyword+=.
-autocmd BufRead     *.targets  set iskeyword+=-
-autocmd BufRead     *.targets  set filetype=xml
-
-autocmd BufRead     *.bsh      set syn=java
-autocmd BufRead     *.groovy   set syn=java
-
-autocmd BufRead     *.ps*      set iskeyword+=-
-"autocmd BufRead     *.ps*      set nocin
-
-autocmd BufRead     *.build    set shiftwidth=2
-autocmd BufRead     *.build    set tabstop=2
-autocmd BufRead     *.build    set iskeyword+=.
-autocmd BufRead     *.build    set iskeyword+=-
-
 " Marker at column 120
 set colorcolumn=120
 
@@ -151,6 +128,7 @@ set expandtab                     " use spaces not tabs
 set smarttab
 set si
 set ai
+set cin
 set cink=0{,*},e
 set tabstop=4                     " number of spaces for a <Tab>
 set shiftwidth=4                  " autoindent spaces
@@ -260,3 +238,25 @@ nmap <c-p> P=`]
 
 " Search and replace for word under cursor
 nmap <F4> :%s/<C-r><C-w>//gc<Left><Left><Left>
+
+autocmd BufRead     *.mak      set noexpandtab
+autocmd BufRead     *.bat      set nosi
+
+autocmd BufRead     *.xml      set iskeyword+=.
+autocmd BufRead     *.xml      set iskeyword+=-
+
+autocmd BufRead     *.targets  set iskeyword+=.
+autocmd BufRead     *.targets  set iskeyword+=-
+autocmd BufRead     *.targets  set filetype=xml
+
+autocmd BufRead     *.bsh      set syn=java
+autocmd BufRead     *.groovy   set syn=java
+
+autocmd BufRead     *.ps*      set iskeyword+=-
+autocmd BufRead     *.ps*      set cindent cinoptions& cinoptions+=+0
+
+autocmd BufRead     *.build    set shiftwidth=2
+autocmd BufRead     *.build    set tabstop=2
+autocmd BufRead     *.build    set iskeyword+=.
+autocmd BufRead     *.build    set iskeyword+=-
+
