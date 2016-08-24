@@ -254,7 +254,7 @@ nmap <F10> :!start /b cmd /c "C:\Program Files (x86)\GitExtensions\GitExtensions
 nmap W bvw
 
 " Paste and format
-nmap <c-p> p=`]
+nmap <c-p> P=`]
 
 " Search and replace for word under cursor
 nmap <F4> :%s/<C-r><C-w>//gc<Left><Left><Left>
