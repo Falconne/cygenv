@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 let g:zenburn_old_Visual = 1  " More visible visual
+let g:yankring_replace_n_pkey = '<C-F11>'
+let g:ctrlp_map = '<S-F2>'
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/vimfiles/bundle/Vundle.vim
@@ -63,7 +65,7 @@ nmap <F3> :NumbersToggle<CR>
 let g:enable_numbers = 0
 
 nmap <F2> :CtrlPMRU<CR>
-nmap <S-F2> :CtrlP<CR>
+nmap <C-F2> :CtrlPBuffer<CR>
 
 " Navigate bookmarks in file with Alt-Ctrl-Arrows
 nmap <C-M-Up> ['
@@ -73,10 +75,11 @@ nmap <C-M-Down> ]'
 nmap <C-Up> [c
 nmap <C-Down> ]c
 
-" Surround visual selection with brackets (plugin)
-vmap { S{
-vmap ( S(
-vmap [ S[
+" Surround visual selection with brackets without inner space
+" (plugin)
+vmap { S}
+vmap ( S)
+vmap [ S]
 
 " Highlight all matches in incremental search (plugin)
 "map /  <Plug>(incsearch-forward)
@@ -98,8 +101,13 @@ vmap <S-F5> <Plug>NERDCommenterUncomment<Down>
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 
+let g:AutoPairs={'(':')', '[':']', '{':'}',"'":"'",'"':'"'}
+
 " Show YankRing
 nmap <silent> <F11> :YRShow<CR>
+
+" Disable gitgutter realtime monitoring
+let g:gitgutter_realtime = 0
 
 set noswapfile
 set gfn=Anonymous_Pro:h16:cANSI
@@ -151,6 +159,7 @@ nmap <C-k> i<CR><Esc>
 
 set guioptions+=a                 " autoselect (basically make copy/paste work)
 set ru                            " show cursor position below each window
+
 " Duplicate line
 nmap <C-j> yyp
 nmap <Esc><Esc> :noh<CR>
@@ -220,7 +229,8 @@ set showbreak=...
 hi NonText guifg=#efefef guibg=#4f4f4f
 
 
-"Enhanced Tab functionality - Completes word if in middle of one
+" Enhanced Tab functionality - Completes word if in middle of one,
+" otherwise adds indent
 function! InsertTabWrapper()
       let col = col('.') - 1
       if !col || getline('.')[col - 1] !~ '\k'
@@ -237,4 +247,11 @@ map <C-e> :Explore<CR>
 set history=999
 nmap U :UndotreeToggle<CR>
 
+" Open Git Extensions commit dialog
 nmap <F10> :!start /b cmd /c "C:\Program Files (x86)\GitExtensions\GitExtensions.exe" commit %:p:h<CR>
+
+" Select word under cursor
+nmap W bvw
+
+" Paste and format
+nmap <c-p> p=`]
