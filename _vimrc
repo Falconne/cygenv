@@ -18,15 +18,11 @@ Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
 
-"Plugin 'scrooloose/nerdtree'
-
 Plugin 'Zenburn'
 " Colour scheme is read by other plugins so must be loaded now
 colorscheme Zenburn
 
-"Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Yggdroot/indentLine'
-
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
@@ -129,7 +125,7 @@ set smarttab
 set si
 set ai
 set cin
-set cink=0{,*},e
+"set cink=0{,*},e
 set tabstop=4                     " number of spaces for a <Tab>
 set shiftwidth=4                  " autoindent spaces
 set backspace=indent,eol,start
@@ -254,7 +250,7 @@ autocmd BufEnter     *.groovy   set syn=java
 
 autocmd BufEnter     *.ps*      set iskeyword+=-
 autocmd BufEnter     *.ps*      set iskeyword+=\$
-autocmd BufEnter     *.ps*      set cindent cinoptions& cinoptions+=+0
+autocmd BufEnter     *.ps*      set cindent cinoptions& cinoptions+=+0 cinkeys-=0#
 
 autocmd BufEnter     *.build    set shiftwidth=2
 autocmd BufEnter     *.build    set tabstop=2
