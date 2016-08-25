@@ -231,7 +231,7 @@ nmap U :UndotreeToggle<CR>
 nmap <F10> :!start /b cmd /c "C:\Program Files (x86)\GitExtensions\GitExtensions.exe" commit %:p:h<CR>
 
 " Select word under cursor
-nmap W bvw
+nmap W bve
 
 " Paste and format
 nmap <c-p> P=`]
@@ -239,24 +239,25 @@ nmap <c-p> P=`]
 " Search and replace for word under cursor
 nmap <F4> :%s/<C-r><C-w>//gc<Left><Left><Left>
 
-autocmd BufRead     *.mak      set noexpandtab
-autocmd BufRead     *.bat      set nosi
+autocmd BufEnter     *.mak      set noexpandtab
+autocmd BufEnter     *.bat      set nosi
 
-autocmd BufRead     *.xml      set iskeyword+=.
-autocmd BufRead     *.xml      set iskeyword+=-
+autocmd BufEnter     *.xml      set iskeyword+=.
+autocmd BufEnter     *.xml      set iskeyword+=-
 
-autocmd BufRead     *.targets  set iskeyword+=.
-autocmd BufRead     *.targets  set iskeyword+=-
-autocmd BufRead     *.targets  set filetype=xml
+autocmd BufEnter     *.targets  set iskeyword+=.
+autocmd BufEnter     *.targets  set iskeyword+=-
+autocmd BufEnter     *.targets  set filetype=xml
 
-autocmd BufRead     *.bsh      set syn=java
-autocmd BufRead     *.groovy   set syn=java
+autocmd BufEnter     *.bsh      set syn=java
+autocmd BufEnter     *.groovy   set syn=java
 
-autocmd BufRead     *.ps*      set iskeyword+=-
-autocmd BufRead     *.ps*      set cindent cinoptions& cinoptions+=+0
+autocmd BufEnter     *.ps*      set iskeyword+=-
+autocmd BufEnter     *.ps*      set iskeyword+=\$
+autocmd BufEnter     *.ps*      set cindent cinoptions& cinoptions+=+0
 
-autocmd BufRead     *.build    set shiftwidth=2
-autocmd BufRead     *.build    set tabstop=2
-autocmd BufRead     *.build    set iskeyword+=.
-autocmd BufRead     *.build    set iskeyword+=-
+autocmd BufEnter     *.build    set shiftwidth=2
+autocmd BufEnter     *.build    set tabstop=2
+autocmd BufEnter     *.build    set iskeyword+=.
+autocmd BufEnter     *.build    set iskeyword+=-
 
