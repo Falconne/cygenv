@@ -245,6 +245,10 @@ autocmd BufEnter     *.targets  set iskeyword+=.
 autocmd BufEnter     *.targets  set iskeyword+=-
 autocmd BufEnter     *.targets  set filetype=xml
 
+autocmd BufEnter     *.*proj    set filetype=xml
+autocmd BufEnter     *.*proj    set shiftwidth=2
+autocmd BufEnter     *.*proj    set tabstop=2
+
 autocmd BufEnter     *.bsh      set syn=java
 autocmd BufEnter     *.groovy   set syn=java
 
