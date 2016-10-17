@@ -208,11 +208,10 @@ alias less="less -R"
 if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     export TERM=$OSTYPE
 
-    if type -a gvim >/dev/null 2>&1; then
-        export EDITOR=gedit
-    else
-        export EDITOR=nedit
-    fi
+    g () {
+        unset SHELL
+        cygstart gvim "`cygpath -aw $@`"
+    }
 fi
 
 if [ $OSTYPE = "cygwin" ]; then
