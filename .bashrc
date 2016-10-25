@@ -186,6 +186,7 @@ alias glog="git log --graph --decorate --pretty=oneline --abbrev-commit --format
 alias gl="glog | less -R"
 alias glo="git log -25 --format='%C(bold yellow)%h%C(reset) %C(white)%s%C(reset) %C(bold yellow)- %an%C(reset)'"
 alias gld="git log -p --color --since='4 days ago' | less -R"
+alias gg="git grep -iF"
 alias sta="git status"
 alias rpull="git pull --rebase"
 alias pull="git pull"
