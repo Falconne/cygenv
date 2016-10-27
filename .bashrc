@@ -206,6 +206,9 @@ alias showpush="git log --oneline @{u}.."
 # Use git colours when paging
 alias less="less -R"
 
+# Alternative starter for Cygwin Vim so it doesn't use vundle meant for GVIM Windows
+alias vimc="vim -u ~/_vimrc_cygwin"
+
 if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     export TERM=$OSTYPE
 
