@@ -119,6 +119,9 @@ filetype on
 set lcs=tab:\>\-,trail:_
 set list                          " Show trailing whitespace
 
+" Remove trailing whitespace
+namp <c-x> :%s/\s\+$//g
+
 " Indentation
 set expandtab                     " use spaces not tabs
 set smarttab
