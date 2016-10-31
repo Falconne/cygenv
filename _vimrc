@@ -120,7 +120,7 @@ set lcs=tab:\>\-,trail:_
 set list                          " Show trailing whitespace
 
 " Remove trailing whitespace
-namp <c-x> :%s/\s\+$//g
+nmap <C-x> :%s/\s\+$//g<CR>
 
 " Indentation
 set expandtab                     " use spaces not tabs
