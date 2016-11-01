@@ -197,6 +197,7 @@ alias co="git checkout"
 alias fetch="git fetch"
 alias commit="git commit"
 alias chry="git cherry-pick"
+alias gdiff="git difftool --noprompt"
 
 # cd to top level of git repo
 alias cdr='cd $(git rev-parse --show-toplevel)'
