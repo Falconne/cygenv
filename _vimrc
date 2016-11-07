@@ -256,7 +256,6 @@ autocmd BufEnter     *.bsh      set syn=java
 autocmd BufEnter     *.groovy   set syn=java
 
 autocmd BufEnter     *.ps*      set iskeyword+=-
-autocmd BufEnter     *.ps*      set iskeyword+=\$
 autocmd BufEnter     *.ps*      set cindent cinoptions& cinoptions+=+0 cinkeys-=0#
 
 autocmd BufEnter     *.build    set shiftwidth=2
