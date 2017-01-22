@@ -178,7 +178,7 @@ try
     pushd .
     chdir $setupDir
     $args = "-q -R $cygdir -n -g -o -s $site "
-    $args += "--packages openssh,bash,mintty,curl,chere"
+    $args += "--packages openssh,bash,mintty,curl,chere,rsync"
     Start-Process -NoNewWindow -Wait $setupProg $args
     popd
 
