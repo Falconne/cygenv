@@ -19,8 +19,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 
 Plugin 'Zenburn'
-" Colour scheme is read by other plugins so must be loaded now
-colorscheme Zenburn
 
 Plugin 'Yggdroot/indentLine'
 Plugin 'bling/vim-airline'
@@ -54,6 +52,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+colorscheme Zenburn
 set number
 set laststatus=2
 nmap <F3> :NumbersToggle<CR>
