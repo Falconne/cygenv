@@ -25,7 +25,6 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mbbill/undotree'
-"Plugin 'jiangmiao/auto-pairs'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'PProvost/vim-ps1'
@@ -264,3 +263,5 @@ autocmd BufEnter     *.build    set iskeyword+=-
 
 " Disable automatic comment continuation
 setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+:hi ColorColumn guibg=#454545
