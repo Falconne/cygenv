@@ -1,9 +1,9 @@
 cygenv
 ======
 
-Bash customisation for Cygwin, Linux and OSX, specifically for Git use.
+Bash customisation for Cygwin, Linux and OSX, specifically for Git use. Includes vundle setup for vim.
 
-# Installation
+# Cygwin Installation
 ## Windows
 Clone this repo and run `bash_install_win.bat`. That is all. This script automatically:
   1. installs Cygwin, or updates any existing installation in `C:\Cygwin`, with required packages.
@@ -136,3 +136,9 @@ co|`git checkout`
 fetch|`git fetch`
 commit|`git commit`
 chry|`git cherry-pick`
+
+# Vundle Installation
+* `~/_vimrc` should just contain `source <cygenv location>\_vimrc`
+* Create `~/vimfiles\bundle`
+* Clone `https://github.com/VundleVim/Vundle.vim` inside `~/vimfiles\bundle`
+* Run vim and type `:PluginInstall`
