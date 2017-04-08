@@ -137,8 +137,20 @@ fetch|`git fetch`
 commit|`git commit`
 chry|`git cherry-pick`
 
+# Configure Git
+```
+git config --global user.email "falconne@gmail.com"
+git config --global user.name "Anuradha Dissanayake"
+```
+
 # Vundle Installation
+## Windows
 * `~/_vimrc` should just contain `source <cygenv location>\_vimrc`
 * Create `~/vimfiles\bundle`
 * Clone `https://github.com/VundleVim/Vundle.vim` inside `~/vimfiles\bundle`
+## POSIX
+* Create a symlink `~/.vimrc` to `_vimrc` in this repo
+* Run: `git clone https://github.com/VundleVim/Vundle.vim.git ~/vimfiles/bundle/Vundle.vim`
+
+## First Run
 * Run vim and type `:PluginInstall`
