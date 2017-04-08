@@ -141,6 +141,7 @@ chry|`git cherry-pick`
 ```
 git config --global user.email "falconne@gmail.com"
 git config --global user.name "Anuradha Dissanayake"
+git config --global push.default simple
 ```
 
 # Vundle Installation
