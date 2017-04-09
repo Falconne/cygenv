@@ -3,7 +3,7 @@ cygenv
 
 Bash customisation for Cygwin, Linux and OSX, specifically for Git use. Includes vundle setup for vim.
 
-# Cygwin Installation
+# Primary Installation
 ## Windows
 Clone this repo and run `bash_install_win.bat`. That is all. This script automatically:
   1. installs Cygwin, or updates any existing installation in `C:\Cygwin`, with required packages.
@@ -27,6 +27,11 @@ git config --global user.email "falconne@gmail.com"
 git config --global user.name "Anuradha Dissanayake"
 git config --global push.default simple
 ```
+# Font Installation
+## Windows
+Install fonts from `fonts` directory.
+## Ubuntu
+sudo apt-get install -y ttf-anonymous-pro
 
 # Vundle Installation
 ## Windows
