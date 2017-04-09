@@ -104,7 +104,11 @@ nmap <silent> <F11> :YRShow<CR>
 let g:gitgutter_realtime = 0
 
 set noswapfile
-set gfn=Anonymous_Pro:h16:cANSI
+if has('win32') || has('win32unix')
+    set gfn=Anonymous_Pro:h16:cANSI
+else
+    set gfn=Anonymous Pro 14
+endif
 
 " Marker at column 120
 set colorcolumn=120
