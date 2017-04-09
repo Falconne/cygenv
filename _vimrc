@@ -107,7 +107,7 @@ set noswapfile
 if has('win32') || has('win32unix')
     set gfn=Anonymous_Pro:h16:cANSI
 else
-    set gfn="Anonymous Pro 14"
+    set gfn=Anonymous\ Pro\ 14
 endif
 
 " Marker at column 120
