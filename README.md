@@ -30,12 +30,10 @@ git config --global push.default simple
 
 # Vundle Installation
 ## Windows
-* `~/_vimrc` should just contain `source <cygenv location>\_vimrc`
-* Create `~/vimfiles\bundle`
-* Clone `https://github.com/VundleVim/Vundle.vim` inside `~/vimfiles\bundle`
+Run `install_vundle_win.bat`
 ## POSIX
 * Create a symlink `~/.vimrc` to `_vimrc` in this repo
 * Run: `git clone https://github.com/VundleVim/Vundle.vim.git ~/vimfiles/bundle/Vundle.vim`
 
-## First Run
-* Run vim and type `:PluginInstall`
+## Setup Vundle on First Run
+* Start vim and type `:PluginInstall`
