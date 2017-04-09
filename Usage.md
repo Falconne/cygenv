@@ -116,5 +116,6 @@ rpush|Does an `rpull` then `push`
 co|`git checkout`
 fetch|`git fetch`
 commit|`git commit`
+gec|Open GitExtensions commit dialog
 chry|`git cherry-pick`
 

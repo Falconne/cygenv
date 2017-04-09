@@ -198,6 +198,7 @@ alias push="git push"
 alias co="git checkout"
 alias fetch="git fetch"
 alias commit="git commit"
+alias gec='"/cygdrive/c/Program Files (x86)/GitExtensions/GitExtensions.exe" commit .'
 alias chry="git cherry-pick"
 alias gdiff="git difftool -y"
 
