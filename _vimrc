@@ -254,9 +254,6 @@ autocmd BufEnter     *.*proj    set filetype=xml
 autocmd BufEnter     *.*proj    set shiftwidth=2
 autocmd BufEnter     *.*proj    set tabstop=2
 
-autocmd BufEnter     *.bsh      set syn=java
-autocmd BufEnter     *.groovy   set syn=java
-
 autocmd BufEnter     *.ps*      set iskeyword+=-
 autocmd BufEnter     *.ps*      set cindent cinoptions& cinoptions+=+0 cinkeys-=0#
 
@@ -265,7 +262,8 @@ autocmd BufEnter     *.build    set tabstop=2
 autocmd BufEnter     *.build    set iskeyword+=.
 autocmd BufEnter     *.build    set iskeyword+=-
 
-:hi ColorColumn guibg=#454545
+" Disable comment continuation.
+" Some plugin keeps resetting this, so have to do it every time.
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
-" Disable comment continuation
-:set formatoptions-=cro
+:hi ColorColumn guibg=#454545
