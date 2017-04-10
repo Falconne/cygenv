@@ -265,7 +265,7 @@ autocmd BufEnter     *.build    set tabstop=2
 autocmd BufEnter     *.build    set iskeyword+=.
 autocmd BufEnter     *.build    set iskeyword+=-
 
-" Disable automatic comment continuation
-setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
 :hi ColorColumn guibg=#454545
+
+" Disable comment continuation
+:set formatoptions-=cro
