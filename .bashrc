@@ -221,6 +221,8 @@ if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
         unset SHELL
         cygstart gvim "`cygpath -aw $@`"
     }
+else
+    alias g='gvim'
 fi
 
 if [ $OSTYPE = "cygwin" ]; then
