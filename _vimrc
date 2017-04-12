@@ -221,7 +221,8 @@ function! InsertTabWrapper()
       endif
 endfunction
 
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <S-Tab> <C-D>
 
 map <C-e> :Explore<CR>
 
@@ -253,6 +254,12 @@ autocmd BufEnter     *.targets  set filetype=xml
 autocmd BufEnter     *.*proj    set filetype=xml
 autocmd BufEnter     *.*proj    set shiftwidth=2
 autocmd BufEnter     *.*proj    set tabstop=2
+
+autocmd BufEnter,BufRead     *.yaml,*.yml    set shiftwidth=2
+autocmd BufEnter,BufRead     *.yaml,*.yml    set tabstop=2
+
+autocmd BufEnter     *.bsh      set syn=java
+autocmd BufEnter     *.groovy   set syn=java
 
 autocmd BufEnter     *.ps*      set iskeyword+=-
 autocmd BufEnter     *.ps*      set cindent cinoptions& cinoptions+=+0 cinkeys-=0#
