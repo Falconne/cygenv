@@ -274,3 +274,6 @@ autocmd BufEnter     *.build    set iskeyword+=-
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 :hi ColorColumn guibg=#454545
+
+" Stop hiding quotes in json
+set conceallevel=0
