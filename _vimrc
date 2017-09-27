@@ -122,7 +122,7 @@ set lcs=tab:\>\-,trail:_
 set list                          " Show trailing whitespace
 
 " Remove trailing whitespace
-nmap <M-x> :%s/\s\+$//g<CR>
+nmap <M-x> :%s/\s\+$//g<CR>:noh<CR>
 
 " Indentation
 set expandtab                     " use spaces not tabs
@@ -268,6 +268,8 @@ autocmd BufEnter     *.build    set shiftwidth=2
 autocmd BufEnter     *.build    set tabstop=2
 autocmd BufEnter     *.build    set iskeyword+=.
 autocmd BufEnter     *.build    set iskeyword+=-
+
+autocmd BufEnter     *.json     set conceallevel=0
 
 " Disable comment continuation.
 " Some plugin keeps resetting this, so have to do it every time.
