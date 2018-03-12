@@ -21,8 +21,8 @@ shopt -s autocd
 # if the directory name initially supplied does not exist.
 shopt -s dirspell
 
-# The pattern ‘**’ used in a filename expansion context will match all files and zero or
-# more directories and subdirectories. If the pattern is followed by a ‘/’, only
+# The pattern ** used in a filename expansion context will match all files and zero or
+# more directories and subdirectories. If the pattern is followed by a /, only
 # directories and subdirectories match.
 # For example, 'cd **/*.App'.
 shopt -s globstar

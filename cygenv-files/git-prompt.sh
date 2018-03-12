@@ -269,7 +269,9 @@ draw_line() {
     str=`echo $str | sed -e 's/\\\\\]//g'`
     str=`echo $str | sed 's/\x1b\[[0-9;]*m//g'`
     fill=""
-    num_fillers=$(($COLUMNS - ${#str} + 5))
+    padding=5
+    if [ -n "$ConEmuHWND" ]; then padding=4; fi
+    num_fillers=$(($COLUMNS - ${#str} + $padding))
     if [ $num_fillers -gt 0 ]; then
         fill=${fillers:0:$num_fillers}
     fi
