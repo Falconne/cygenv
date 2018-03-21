@@ -47,7 +47,7 @@ else
     SCRIPT_DIR="$( dirname $(readlink -f ~/.bashrc) )"
 fi
 
-. $SCRIPT_DIR/cygenv-files/git-completion.sh
+if ! [ -n "$ConEmuHWND" ]; then . $SCRIPT_DIR/cygenv-files/git-completion.sh; fi
 
 # History Options
 #
