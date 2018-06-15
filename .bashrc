@@ -184,7 +184,7 @@ alias grep="grep --exclude-dir={\.svn,\.git} --color=always"
 # git aliases
 alias glog="git log --graph --decorate --pretty=oneline --abbrev-commit --format=format:' %C(white)%s%C(reset) %C(bold yellow)- %an%C(reset)%n''     %C(dim white)%h - %cD (%cr)%C(reset)%C(bold yellow)%d%C(reset)%n' --color"
 alias gl="glog | less -R"
-alias glo="git log -25 --format='%C(bold yellow)%h%C(reset) %C(white)%s%C(reset) %C(bold yellow)- %an%C(reset)'"
+alias glo="git --no-pager log -25 --format='%C(bold yellow)%h%C(reset) %C(white)%s%C(reset) %C(bold yellow)- %an%C(reset)'"
 alias gld="git log -p --color --since='4 days ago' | less -R"
 alias gg="git --no-pager grep -iF --break"
 alias ggc="git --no-pager grep -F --break"
