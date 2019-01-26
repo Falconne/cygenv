@@ -80,8 +80,12 @@ export HISTIGNORE="&:[ \t]:l[sl]:[bf]g:exit"
 # alias mv='mv -i'
 #
 # Default to human readable figures
- alias df='df --si'
- alias du='du --si'
+alias df='df --si'
+alias du='du --si'
+
+# Parse hidden files and show in space usage order
+alias duall='du -sch .[!.]* * | sort -h'
+
 #
 # alias whence='type -a'                        # where, of a sort
 #
