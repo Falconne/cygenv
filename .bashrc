@@ -212,6 +212,12 @@ alias cdr='cd $(git rev-parse --show-toplevel)'
 # List commits that will be pushed from current branch to upstream tracked branch
 alias showpush="git log --oneline @{u}.."
 
+# Checkout a branch and pull
+cop() {
+    git checkout $1
+    git pull
+}
+
 # Use git colours when paging
 alias less="less -R"
 
