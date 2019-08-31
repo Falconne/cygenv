@@ -116,7 +116,11 @@ function linkHomeDir()
     $realHomeDir = ""
 
     # Determine if Windows home path is mapped remote
-    if (Test-Path Env:\HOMESHARE)
+    if (Test-Path Env:\HOME)
+    {
+        $realHomeDir = $Env:HOME
+    }
+    elseif (Test-Path Env:\HOMESHARE)
     {
         $realHomeDir = $Env:HOMESHARE
     }
