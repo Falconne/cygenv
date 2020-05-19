@@ -1,0 +1,17 @@
+[includeIf "gitdir:**/work/"]
+    path = ~/work.gitconfig
+
+[user]
+	name = Anuradha Dissanayake
+	email = falconne@gmail.com
+
+[rerere]
+	enabled = true
+	autoupdate = true
+
+[push]
+	default = current
+
+[alias]
+	co = checkout
+	chry = cherry-pick
