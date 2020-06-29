@@ -214,8 +214,7 @@ alias showpush="git log --oneline @{u}.."
 
 # Checkout a branch and pull
 cop() {
-    git checkout $1
-    git pull
+    git checkout $1 && git pull
 }
 
 # Use git colours when paging
