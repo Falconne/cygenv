@@ -16,7 +16,7 @@ Clone this repo and run `bash_install_win.bat`. That is all. This script automat
 Running `bash_install_win.bat` regularly will update Cygwin with the latest packages.
 
 ## Linux and OSX
-Clone this repo and create a `~/.bashrc symlink` to the `.bashrc` file in this repo. Create a `~/bashrc_custom` file and add any custom commands in there; it is run after .bashrc finishes.
+Clone this repo and create a `~/.bashrc` symlink to the `.bashrc` file in this repo. Create a `~/bashrc_custom` file and add any custom commands in there; it is run after .bashrc finishes.
 
 ## Usage and Enhanced Functionality
 See [Usage.md](Usage.md)
