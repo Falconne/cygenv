@@ -52,7 +52,7 @@ if ! [ -n "$ConEmuHWND" ]; then . $SCRIPT_DIR/cygenv-files/git-completion.sh; fi
 # History Options
 #
 # Don't put duplicate lines in the history.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+export HISTCONTROL=ignoreboth
 #
 # Ignore some controlling instructions
 # HISTIGNORE is a colon-delimited list of patterns which should be excluded.
@@ -60,6 +60,8 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
 # export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
 export HISTIGNORE="&:[ \t]:l[sl]:[bf]g:exit"
+
+export HISTSIZE=10000
 
 # Aliases
 #
@@ -205,6 +207,7 @@ alias commit="git commit"
 alias gec='"/cygdrive/c/Program Files (x86)/GitExtensions/GitExtensions.exe" commit `cygpath -aw .` &'
 alias chry="git cherry-pick"
 alias gdiff="git difftool -y"
+alias gbranches="git branch -r --sort=-committerdate | head -n 10"
 
 # cd to top level of git repo
 alias cdr='cd $(git rev-parse --show-toplevel)'
@@ -243,3 +246,10 @@ if [ -f ~/bashrc_custom ];
 then
     . ~/bashrc_custom
 fi
+export PATH="$(yarn global bin):$PATH"
+export PATH="$(yarn global bin):$PATH"
+export PATH="$(yarn global bin):$PATH"
+export PATH="$(yarn global bin):$PATH"
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
