@@ -195,6 +195,7 @@ alias gld="git log -p --color --since='4 days ago' | less -R"
 alias gg="git --no-pager grep -iF --break"
 alias ggc="git --no-pager grep -F --break"
 alias ggh="gg --no-pager --heading"
+alias glb="git branch -r --sort=-committerdate | head -n 10"
 alias git="git --no-pager"
 alias sta="git status"
 alias rpull="git pull --rebase"
@@ -246,10 +247,7 @@ if [ -f ~/bashrc_custom ];
 then
     . ~/bashrc_custom
 fi
-export PATH="$(yarn global bin):$PATH"
-export PATH="$(yarn global bin):$PATH"
-export PATH="$(yarn global bin):$PATH"
-export PATH="$(yarn global bin):$PATH"
+export PATH="$(yarn global bin):$PATH:/home/a.dissanayake/apps/"
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
