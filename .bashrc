@@ -52,7 +52,7 @@ if ! [ -n "$ConEmuHWND" ]; then . $SCRIPT_DIR/cygenv-files/git-completion.sh; fi
 # History Options
 #
 # Don't put duplicate lines in the history.
-export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth:erasedups
 #
 # Ignore some controlling instructions
 # HISTIGNORE is a colon-delimited list of patterns which should be excluded.
@@ -147,8 +147,8 @@ shopt -s checkwinsize
 if [ $OSTYPE != "msys" ]; then
     . $SCRIPT_DIR/cygenv-files/git-prompt.sh
     GIT_PS1_SHOWCOLORHINTS=true
-    #GIT_PS1_SHOWDIRTYSTATE=true
-    #GIT_PS1_SHOWUNTRACKEDFILES=true
+    GIT_PS1_SHOWDIRTYSTATE=true
+    GIT_PS1_SHOWUNTRACKEDFILES=true
     GIT_PS1_SHOWUPSTREAM="verbose"
     PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
 fi
