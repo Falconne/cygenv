@@ -14,7 +14,7 @@ shopt -s histappend
 # for example, cd /vr/lgo/apaache would find /var/log/apache
 shopt -s cdspell
 
-# cd to a directory jusy by typing the path
+# cd to a directory just by typing the path
 shopt -s autocd
 
 # If set, Bash attempts spelling correction on directory names during word completion
@@ -153,21 +153,6 @@ if [ $OSTYPE != "msys" ]; then
     PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
 fi
 
-if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
-    # Start gvim with converted paths and don't hang
-    g () {
-        cygstart gvim `cygpath -w "$@"`
-    }
-
-    gedit () {
-        gvim "`cygpath -w $@`"
-    }
-
-    nedit () {
-        notepad "`cygpath -w $@`"
-    }
-fi
-
 if [[ $OSTYPE = *darwin* ]]; then
     alias ld="ls -G"
     alias ls="ls -G"
@@ -229,13 +214,6 @@ alias vimc="vim -u ~/_vimrc_cygwin"
 
 if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     export TERM=$OSTYPE
-
-    g () {
-        unset SHELL
-        cygstart gvim "`cygpath -aw $@`"
-    }
-else
-    alias g='gvim'
 fi
 
 if [ $OSTYPE = "cygwin" ]; then
@@ -247,7 +225,10 @@ if [ -f ~/bashrc_custom ];
 then
     . ~/bashrc_custom
 fi
-export PATH="$(yarn global bin):$PATH:/home/a.dissanayake/apps/"
+export PATH="$PATH:/home/a.dissanayake/apps/"
+if which yarn &>/dev/null; then
+    export PATH="$PATH:$(yarn global bin)"
+fi
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
