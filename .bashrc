@@ -150,7 +150,7 @@ if [ $OSTYPE != "msys" ]; then
     GIT_PS1_SHOWDIRTYSTATE=true
     GIT_PS1_SHOWUNTRACKEDFILES=true
     GIT_PS1_SHOWUPSTREAM="verbose"
-    PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "]--\n--[ "'
+    PROMPT_COMMAND='__git_ps1 "\n--[\u@\h \w"] "\n--[ "'
 fi
 
 if [[ $OSTYPE = *darwin* ]]; then
@@ -200,6 +200,9 @@ alias cdr='cd $(git rev-parse --show-toplevel)'
 
 # List commits that will be pushed from current branch to upstream tracked branch
 alias showpush="git log --oneline @{u}.."
+
+# Make Ranger exit to selected dir
+alias ranger='ranger --choosedir=$HOME/.rangerdir; cd $(cat $HOME/.rangerdir)'
 
 # Checkout a branch and pull
 cop() {

@@ -269,9 +269,7 @@ draw_line() {
     str=`echo $str | sed -e 's/\\\\\]//g'`
     str=`echo $str | sed 's/\x1b\[[0-9;]*m//g'`
     fill=""
-    padding=5
-    if [ -n "$ConEmuHWND" ]; then padding=4; fi
-    num_fillers=$(($COLUMNS - ${#str} + $padding))
+    num_fillers=$(($COLUMNS - ${#str}))
     if [ $num_fillers -gt 0 ]; then
         fill=${fillers:0:$num_fillers}
     fi
@@ -306,7 +304,6 @@ __git_ps1 ()
 {
 	local pcmode=no
 	local detached=no
-	local ps1pc_start='\u@\h \w '
 	local ps1pc_end='\$ '
 	local printf_format=' (%s)'
 
@@ -315,7 +312,7 @@ __git_ps1 ()
 			ps1pc_start="$1"
 			ps1pc_end="$2"
 			printf_format="${3:-$printf_format}"
-            pathstr="--[`whoami`@`hostname` $PWD]-"
+            pathstr="\n--[$(whoami)@$(hostname) $PWD]-"
 		;;
 		0|1)	printf_format="${1:-$printf_format}"
 		;;
@@ -329,11 +326,11 @@ __git_ps1 ()
 		--short HEAD 2>/dev/null)"
 	rev_parse_exit_code="$?"
 
-	if [ -z "$repo_info" ]; then
+	if [[ -z "$repo_info" ]] || [[ $(git config --get remote.origin.url 2>/dev/null) == *config.git ]]; then
 		if [ $pcmode = yes ]; then
 			#In PC mode PS1 always needs to be set
-            draw_line "$pathstr$ps1pc_end"
-			PS1="${YELLOW}$ps1pc_start$ps1pc_end${NO_COLOUR}"
+            draw_line "$pathstr"
+			PS1="${YELLOW}$pathstr$ps1pc_end${NO_COLOUR}"
 		fi
 		return
 	fi
@@ -483,7 +480,7 @@ __git_ps1 ()
 		else
 			printf -v gitstring -- "$printf_format" "$gitstring"
 		fi
-        draw_line "$pathstr$gitstring$ps1pc_end"
+        draw_line "$pathstr$gitstring"
 		PS1="${YELLOW}$ps1pc_start${NO_COLOUR}$gitstring${YELLOW}$ps1pc_end${NO_COLOUR}"
 	else
 		printf -- "$printf_format" "$gitstring"
