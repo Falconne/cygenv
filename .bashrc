@@ -63,6 +63,9 @@ export HISTIGNORE="&:[ \t]:l[sl]:[bf]g:exit"
 
 export HISTSIZE=10000
 
+# Update history with every command
+history -a
+
 # Aliases
 #
 # Some people use a different file for aliases
