@@ -326,7 +326,7 @@ __git_ps1 ()
 		--short HEAD 2>/dev/null)"
 	rev_parse_exit_code="$?"
 
-	if [[ -z "$repo_info" ]] || [[ $(git config --get remote.origin.url 2>/dev/null) == *config.git ]]; then
+	if [[ -n "$NOGITPROMPT" ]] || [[ -z "$repo_info" ]] || [[ $(git config --get remote.origin.url 2>/dev/null) == *config.git ]]; then
 		if [ $pcmode = yes ]; then
 			#In PC mode PS1 always needs to be set
             draw_line "$pathstr"
