@@ -1,8 +1,5 @@
-﻿# Default config
-$site = "ftp://ucmirror.canterbury.ac.nz/pub/cygwin/"
-$cygdir = "c:\cygwin"
-
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
+Set-StrictMode -Version Latest
 
 # Elevate script if needed
 # Get the ID and security principal of the current user account
@@ -68,10 +65,8 @@ function isReparsePoint([string] $path)
 }
 
 $scriptDir = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-# Cygwin home directory
 $username = $Env:USERNAME
-$cyghome = Join-Path $cygdir "home\$username"
-$localBashrcWrapper = Join-Path $cyghome ".bashrc"
+$localBashrcWrapper = "$Env:USERPROFILE\.bashrc"
 
 function isHomeDirLinked($createBashrcBackup)
 {
@@ -100,46 +95,6 @@ function isHomeDirLinked($createBashrcBackup)
     }
 
     return $false
-}
-
-# Symlink Cygwin home to Windows Home
-function linkHomeDir()
-{
-    # Check if we've already done it before
-    if (isReparsePoint $cyghome) { return }
-    if (isHomeDirLinked $false) { return }
-    $homeDirBak = $cyghome + ".cebak"
-    if (Test-Path $homeDirBak) { return }
-
-    # Not been symlinked
-    writeHeading "Symlink Cygwin home to Windows Home"
-    $realHomeDir = ""
-
-    # Determine if Windows home path is mapped remote
-    if (Test-Path Env:\HOME)
-    {
-        $realHomeDir = $Env:HOME
-    }
-    elseif (Test-Path Env:\HOMESHARE)
-    {
-        $realHomeDir = $Env:HOMESHARE
-    }
-	else
-	{
-		$realHomeDir = Join-Path $Env:HOMEDRIVE $Env:HOMEPATH
-	}
-
-    if (!(Test-Path $realHomeDir)) { return }
-    writeProgress "Windows Home is $realHomeDir"
-    if (Test-Path $cyghome)
-    {
-        Move-Item $cyghome $homeDirBak
-    }
-    cmd.exe /c mklink /d $cyghome $realHomeDir
-
-    Copy-Item (Join-Path $scriptDir ".inputrc") $cyghome
-
-    Copy-Item (Join-Path $scriptDir ".profile") $cyghome
 }
 
 function createBashrcWrapper()
