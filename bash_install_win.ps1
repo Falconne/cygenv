@@ -68,35 +68,6 @@ $scriptDir = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 $username = $Env:USERNAME
 $localBashrcWrapper = "$Env:USERPROFILE\.bashrc"
 
-function isHomeDirLinked($createBashrcBackup)
-{
-    $localFileBak = $localBashrcWrapper + ".cebak"
-    if (Test-Path $localBashrcWrapper)
-    {
-        if (Test-Path $localFileBak)
-        {
-            return $true
-        }
-
-        $fileContent = @(Get-Content $localBashrcWrapper)
-        if ($fileContent)
-        {
-            $topLine = $fileContent[0]
-            if ($topLine -like "*cygenv*")
-            {
-                return $true
-            }
-        }
-
-        if ($createBashrcBackup)
-        {
-            Move-Item $localBashrcWrapper $localFileBak
-        }
-    }
-
-    return $false
-}
-
 function createBashrcWrapper()
 {
     if (isHomeDirLinked $true) { return }
