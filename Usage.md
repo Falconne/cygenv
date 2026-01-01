@@ -1,50 +1,26 @@
 Explanation of built in and added functionality in the .bashrc provided by this repo
 
-# Launching Cygwin Terminal
-Run the shortcut called "Cygwin Terminal" (in the Start Menu and the Desktop). This will open mintty.
-
-# Terminal Basics
-If you haven't used a Linux terminal much, this section explains some differences between Cygwin terminals and the Windows terminal.
-  * Selecting text automatically copies it to the clipboard.
-  * Middle click or `Shift-Insert` pastes clipboard contents.
-  * Selection works like a standard editor (double click to select words, triple click to select lines, etc).
-  * Right click brings up a context menu. You can bring up the program's Options menu from here.
-  * Left click moves the cursor around.
-  * The terminal is free sizeable. `Alt-Enter` toggles full screen mode.
-  * `Shift-PgUp/PgDn` and scrollwheel scrolls.
-  
-Note that in Cygwin all paths start from `/cygdrive`. So `C:\temp` in Cygwin is `/cygdrive/c/temp`. If you want, you can create symlinks directly your drives like so:
-
-````
-ln -s /cygdrive/c /c
-````
-
-Now `/c/temp` is a valid path.
-  
-# cygenv Enhancements
-This section describes the features added by the .bashrc in this repo.
-
-## Bash Enhancements
+# Bash Enhancements
  * Minor spelling errors in a `cd` command are automatically corrected. This also works during tab expansion.
- * `cd` comamnds are case insensitive.
+ * `cd` comamnds are NOT case sensitive.
  * You can cd to a directory just by typing a path, i.e.:
- 
+
  ````
  /cygdrive/c/temp
  ````
- 
+
  is equivalent to:
- 
+
   ````
  cd /cygdrive/c/temp
  ````
- 
+
  * You can use `**` in a path or expression in the way globstar works in an Ant script. You can use this to cd down a deep directory structure without typing. For example, if you wanted to cd to `foo/bar/baz/qux`, you can just run:
- 
+
  ````
  cd foo/**/qux/
  ````
- 
+
  will take you there (or to the first hit if there are multiple possibilities).
 
  Note that you cannot combine this with the previous tip (i.e., you cannot ommit `cd` when using `**`)
@@ -58,15 +34,8 @@ This section describes the features added by the .bashrc in this repo.
  * `Alt-Backspace` undos the last delete.
  * `Ctrl-y` pastes the last deleted content.
  * `Home/End` and `Ctrl-a/Ctrl-e` go to the beginning and end of line.
- * If gvim is installed, the alias `g` with a cygwin path to a file will open gvim with the path automatically converted to Windows style, e.g.:
 
-  ````
-  g temp/foo.txt
-  ````
-
-  will not be a problem.
-
-## Enhanced Prompt
+# Enhanced Prompt
 After installation, you should have a coloured prompt similar to:
 
 ````
@@ -82,7 +51,7 @@ When in a git repo, the prompt displays how far ahead/behind the upstream you ar
 ````
 
 However on extremely large repos, this can slow down the prompt display.
- 
+
 ## Git Specific Enhancements
 The following is a list of bash aliases to aid Git usage. These are bash aliases, not Git aliases, so you don't need to type `git` in front.
 

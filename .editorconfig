@@ -1,0 +1,22 @@
+# EditorConfig for cygenv
+# Style guidance inspired by the Confirm-Overwrite function formatting:
+# - Use 4 spaces for indentation
+# - Don't use single-line `if` statements; always place braces on their own lines
+# - Leave a blank line after a closing brace `}`
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.ps1]
+# PowerShell files: follow the same whitespace rules
+indent_style = space
+indent_size = 4
+end_of_line = crlf
+charset = utf-8
