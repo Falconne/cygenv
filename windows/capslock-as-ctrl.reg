@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+; Remap Caps Lock to Left Ctrl
+; Requires administrator privileges to import and a reboot to take effect.
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
+"Scancode Map"=hex:00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00
+
+; To undo, remove the Scancode Map value and reboot.
