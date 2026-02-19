@@ -1,55 +1,9 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
 let g:zenburn_old_Visual = 1  " More visible visual
 let g:yankring_replace_n_pkey = '<C-F11>'
 let g:ctrlp_map = '<S-F2>'
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/vimfiles/bundle/Vundle.vim
-call vundle#begin("~/vimfiles/bundle")
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" Keep Plugin commands between vundle#begin/end.
-
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-
-Plugin 'Zenburn'
-
-Plugin 'Yggdroot/indentLine'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'mbbill/undotree'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'PProvost/vim-ps1'
-Plugin 'kshenoy/vim-signature'
-Plugin 'godlygeek/tabular'
-Plugin 'terryma/vim-expand-region'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'vim-scripts/YankRing.vim'
-Plugin 'tpope/vim-surround'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 colorscheme zenburn
 set number
@@ -68,33 +22,6 @@ nmap <C-M-Down> ]'
 nmap <C-Up> [c
 nmap <C-Down> ]c
 
-" Surround visual selection with braces/quotes inner space (plugin)
-vmap { S}
-vmap ( S)
-vmap [ S]
-vmap " S"
-vmap ' S'
-
-" Highlight all matches in incremental search (plugin)
-"map /  <Plug>(incsearch-forward)
-"map ?  <Plug>(incsearch-backward)
-"map g/ <Plug>(incsearch-stay)
-
-" Expand section by scope
-map + <Plug>(expand_region_expand)
-" Shrink section by scope
-map _ <Plug>(expand_region_shrink)
-
-"(Un)comment line and move down
-nmap <F5> <Plug>NERDCommenterComment<Down>
-nmap <S-F5> <Plug>NERDCommenterUncomment<Down>
-vmap <F5> <Plug>NERDCommenterComment<Down>
-vmap <S-F5> <Plug>NERDCommenterUncomment<Down>
-
-" Enable plugin
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-
 let g:AutoPairs={'(':')', '[':']', '{':'}',"'":"'",'"':'"'}
 
 " Show YankRing
@@ -104,11 +31,6 @@ nmap <silent> <F11> :YRShow<CR>
 let g:gitgutter_realtime = 0
 
 set noswapfile
-if has('win32') || has('win32unix')
-    set gfn=Anonymous_Pro:h16:cANSI
-else
-    set gfn=Anonymous\ Pro\ 14
-endif
 
 " Marker at column 120
 set colorcolumn=120
@@ -116,7 +38,6 @@ set colorcolumn=120
 set nobackup
 set ic
 syntax on
-filetype on
 
 set lcs=tab:\>\-,trail:_
 set list                          " Show trailing whitespace
@@ -155,7 +76,6 @@ set mat=5
 set hls                           " highlight all matches for the current
 set keymodel=startsel,stopsel
 set selection=inclusive
-behave mswin
 
 set wc=^I                         " wildcard is tab (commandline expansion)"
 set wmnu                          " use a menu for tab completion"
@@ -229,9 +149,6 @@ map <C-e> :Explore<CR>
 set history=999
 nmap U :UndotreeToggle<CR>
 
-" Open Git Extensions commit dialog
-nmap <F10> :!start /b cmd /c "C:\Program Files (x86)\GitExtensions\GitExtensions.exe" commit %:p:h<CR>
-
 " Select word under cursor
 nmap W bve
 
@@ -242,7 +159,7 @@ nmap <c-p> P=`]
 nmap <F4> :%s/<C-r><C-w>//gc<Left><Left><Left>
 
 autocmd BufEnter     *.mak      set noexpandtab
-autocmd BufEnter     *.bat      set nosi
+
 
 autocmd BufEnter     *.xml      set iskeyword+=.
 autocmd BufEnter     *.xml      set iskeyword+=-
@@ -258,18 +175,8 @@ autocmd BufEnter     *.*proj    set tabstop=2
 autocmd BufEnter,BufRead     *.yaml,*.yml    set shiftwidth=2
 autocmd BufEnter,BufRead     *.yaml,*.yml    set tabstop=2
 
-autocmd BufEnter     *.bsh      set syn=java
-autocmd BufEnter     *.groovy   set syn=java
-
 autocmd BufEnter     *.ps*      set iskeyword+=-
 autocmd BufEnter     *.ps*      set cindent cinoptions& cinoptions+=+0 cinkeys-=0#
-
-autocmd BufEnter     *.build    set shiftwidth=2
-autocmd BufEnter     *.build    set tabstop=2
-autocmd BufEnter     *.build    set iskeyword+=.
-autocmd BufEnter     *.build    set iskeyword+=-
-
-autocmd BufEnter     *.json     set conceallevel=0
 
 " Disable comment continuation.
 " Some plugin keeps resetting this, so have to do it every time.
