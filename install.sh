@@ -15,10 +15,9 @@ src_tmux="$repo_dir/.tmux.conf"
 src_vim="$repo_dir/.vimrc"
 
 target_bash="$HOME/.bashrc"
-# determine tmux configuration location: prefer existing file, fall back to legacy or create xdg
+
 target_tmux_xdg="$HOME/.config/tmux/tmux.conf"
 target_tmux_legacy="$HOME/.tmux.conf"
-# choose target based on what already exists or preference
 if [ -f "$target_tmux_xdg" ] || [ -L "$target_tmux_xdg" ]; then
   target_tmux="$target_tmux_xdg"
 elif [ -f "$target_tmux_legacy" ] || [ -L "$target_tmux_legacy" ]; then
