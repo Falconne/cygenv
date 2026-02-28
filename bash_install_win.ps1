@@ -10,59 +10,62 @@ else
     $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 }
 
-function Confirm-Overwrite
+# Marker used to identify lines managed by cygenv
+$CygenvMarker = '# cygenv-managed'
+
+function Add-SourceBlockIfNeeded
 {
     param(
-        [Parameter(Mandatory = $true)]
-        [string] $Path
+        [Parameter(Mandatory = $true)][string]$Dest,
+        [Parameter(Mandatory = $true)][string]$Src,
+        [Parameter(Mandatory = $true)][string]$SourceLine,
+        [switch]$Force
     )
 
-    if (-not (Test-Path $Path))
+    if (-not (Test-Path $Src))
     {
-        return $true
-    }
-
-    while ($true)
-    {
-        $response = Read-Host "File '$Path' exists. Overwrite? (Y/N)"
-        switch ($response.ToUpper())
-        {
-            'Y' { return $true }
-            'N' { return $false }
-            default { Write-Host "Please type Y or N." }
-        }
-    }
-}
-
-function Copy-WithConfirm
-{
-    param(
-        [Parameter(Mandatory = $true)][string]$Source,
-        [Parameter(Mandatory = $true)][string]$Destination
-    )
-
-    if (-not (Test-Path $Source))
-    {
-        Write-Error "Source file not found: $Source"
+        Write-Error "Source file not found: $Src"
         return
     }
 
-    $doCopy = Confirm-Overwrite -Path $Destination
-    if (-not $doCopy)
-    {
-        Write-Host "Skipped: $Destination"
-        return
-    }
-
-    $destDir = Split-Path -Parent $Destination
-
-    if (-not (Test-Path $destDir))
+    $destDir = Split-Path -Parent $Dest
+    if ($destDir -and -not (Test-Path $destDir))
     {
         New-Item -ItemType Directory -Path $destDir -Force | Out-Null
     }
 
-    Copy-Item -LiteralPath $Source -Destination $Destination -Force
-    Write-Host "Copied: $Source -> $Destination"
+    if (Test-Path $Dest)
+    {
+        $content = Get-Content $Dest -Raw
+        if ($content -and $content.Contains($CygenvMarker))
+        {
+            if ($Force)
+            {
+                # Remove the managed block: marker line and the following line
+                $lines = Get-Content $Dest
+                $filtered = @()
+                $skip = $false
+                foreach ($line in $lines)
+                {
+                    if ($line.Contains($CygenvMarker)) { $skip = $true; continue }
+                    if ($skip) { $skip = $false; continue }
+                    $filtered += $line
+                }
+                Set-Content -Path $Dest -Value $filtered
+                Write-Host "Removed existing managed block from: $Dest"
+            }
+            else
+            {
+                Write-Host "Skipping (already managed by cygenv): $Dest"
+                return
+            }
+        }
+    }
+
+    Add-Content -Path $Dest -Value ""
+    Add-Content -Path $Dest -Value $CygenvMarker
+    Add-Content -Path $Dest -Value $SourceLine
+    Write-Host "Updated: $Dest -> sources $Src"
 }
 
 function Get-PreferredProfileDestination
@@ -79,17 +82,17 @@ function Get-PreferredProfileDestination
 }
 
 
-# Copy .bashrc to Windows home
+# Append source block for .bashrc
 $sourceBash = Join-Path $ScriptDir '.bashrc'
 $destBash = Join-Path $env:USERPROFILE '.bashrc'
-Write-Host "Installing .bashrc to $destBash"
-Copy-WithConfirm -Source $sourceBash -Destination $destBash
+Write-Host "Updating .bashrc at $destBash"
+Add-SourceBlockIfNeeded -Dest $destBash -Src $sourceBash -SourceLine ". `"$sourceBash`""
 
-# Copy PowerShell profile (CurrentUserAllHosts)
+# Append source block for PowerShell profile
 $sourceProfile = Join-Path $ScriptDir 'Microsoft.PowerShell_profile.ps1'
 $destProfile = Get-PreferredProfileDestination
-Write-Host "Installing PowerShell profile to $destProfile"
-Copy-WithConfirm -Source $sourceProfile -Destination $destProfile
+Write-Host "Updating PowerShell profile at $destProfile"
+Add-SourceBlockIfNeeded -Dest $destProfile -Src $sourceProfile -SourceLine ". `"$sourceProfile`""
 
 Write-Host "Install script finished."
 
