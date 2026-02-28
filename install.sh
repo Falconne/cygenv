@@ -18,26 +18,32 @@ target_bash="$HOME/.bashrc"
 target_tmux_xdg="$HOME/.config/tmux/tmux.conf"
 target_vim="$HOME/.vimrc"
 
-link_if_needed() {
-  local src="$1" dest="$2"
-  if [ -e "$dest" ] || [ -L "$dest" ]; then
+# Appends a sourcing line to dest unless the marker is already present.
+# If FORCE=1, removes any existing managed block first.
+# Args: dest src source_line marker
+append_source_if_needed() {
+  local dest="$1" src="$2" source_line="$3" marker="$4"
+
+  if [ -f "$dest" ] && grep -qF "$marker" "$dest"; then
     if [ "$FORCE" -eq 1 ]; then
-      rm -rf "$dest"
-      printf 'Removed existing %s\n' "$dest"
+      # Remove the managed block (marker line + the line that follows it)
+      sed -i "\|$marker|{N;d}" "$dest"
+      printf 'Removed existing managed block from %s\n' "$dest"
     else
-      printf 'Warning: %s already exists, skipping\n' "$dest"
+      printf 'Skipping %s (already managed by cygenv)\n' "$dest"
       return 0
     fi
   fi
+
   mkdir -p "$(dirname "$dest")"
-  ln -s "$src" "$dest"
-  printf 'Linked %s -> %s\n' "$dest" "$src"
+  printf '\n%s\n%s\n' "$marker" "$source_line" >> "$dest"
+  printf 'Updated %s -> sources %s\n' "$dest" "$src"
 }
 
 echo "Using repo directory: $repo_dir"
 
-link_if_needed "$src_bash" "$target_bash"
-link_if_needed "$src_tmux" "$target_tmux_xdg"
-link_if_needed "$src_vim" "$target_vim"
+append_source_if_needed "$target_bash"     "$src_bash" "source \"$src_bash\""       "# cygenv-managed"
+append_source_if_needed "$target_tmux_xdg" "$src_tmux" "source-file \"$src_tmux\""  "# cygenv-managed"
+append_source_if_needed "$target_vim"      "$src_vim"  "source \"$src_vim\""        "\" cygenv-managed"
 
 echo "Done."
