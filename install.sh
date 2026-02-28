@@ -15,7 +15,18 @@ src_tmux="$repo_dir/.tmux.conf"
 src_vim="$repo_dir/.vimrc"
 
 target_bash="$HOME/.bashrc"
+# determine tmux configuration location: prefer existing file, fall back to legacy or create xdg
 target_tmux_xdg="$HOME/.config/tmux/tmux.conf"
+target_tmux_legacy="$HOME/.tmux.conf"
+# choose target based on what already exists or preference
+if [ -f "$target_tmux_xdg" ] || [ -L "$target_tmux_xdg" ]; then
+  target_tmux="$target_tmux_xdg"
+elif [ -f "$target_tmux_legacy" ] || [ -L "$target_tmux_legacy" ]; then
+  target_tmux="$target_tmux_legacy"
+else
+  target_tmux="$target_tmux_xdg"
+fi
+
 target_vim="$HOME/.vimrc"
 
 # Appends a sourcing line to dest unless the marker is already present.
@@ -43,7 +54,7 @@ append_source_if_needed() {
 echo "Using repo directory: $repo_dir"
 
 append_source_if_needed "$target_bash"     "$src_bash" "source \"$src_bash\""       "# cygenv-managed"
-append_source_if_needed "$target_tmux_xdg" "$src_tmux" "source-file \"$src_tmux\""  "# cygenv-managed"
+append_source_if_needed "$target_tmux" "$src_tmux" "source-file \"$src_tmux\""  "# cygenv-managed"
 append_source_if_needed "$target_vim"      "$src_vim"  "source \"$src_vim\""        "\" cygenv-managed"
 
 echo "Done."
