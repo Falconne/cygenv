@@ -193,7 +193,6 @@ alias push="git push"
 alias co="git checkout"
 alias fetch="git fetch"
 alias commit="git commit"
-alias gec='"/cygdrive/c/Program Files (x86)/GitExtensions/GitExtensions.exe" commit `cygpath -aw .` &'
 alias chry="git cherry-pick"
 alias gdiff="git difftool -y"
 alias gbranches="git branch -r --sort=-committerdate | head -n 10"
@@ -220,10 +219,6 @@ alias vimc="vim -u ~/_vimrc_cygwin"
 
 if [[ $OSTYPE != *linux* ]] && [[ $OSTYPE != *darwin* ]]; then
     export TERM=$OSTYPE
-fi
-
-if [ $OSTYPE = "cygwin" ]; then
-    cd /cygdrive/c
 fi
 
 # Add custom settings in this file
